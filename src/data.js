@@ -8,7 +8,7 @@ export const DATA = {
         email: "mailto:mahirjambhule92@gmail.com",
         github: "https://github.com/Mahirjambhule",
         linkedin: "https://www.linkedin.com/in/mahir-jambhule-9b2887258/",
-        resume: "https://drive.google.com/file/d/1rRNRIBVw1lmfLGKoDSPOZ9oQ-2pHoBQs/view?usp=sharing"
+        resume: "https://drive.google.com/file/d/1jaQ5A33_iqQmMCLyySN7cFUV3w5Xtemk/view?usp=sharing"
     },
     skills: {
         languages: ["C++", "C", "Python", "JavaScript"],

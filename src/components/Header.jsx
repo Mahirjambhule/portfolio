@@ -24,7 +24,7 @@ return (
                 {navItems.map(item => (
                 <a key={item.name} href={item.href} className="hover:text-blue-400 transition-colors">{item.name}</a>
                 ))}
-                <a href={DATA.socials.resume} className="text-blue-400 hover:underline flex items-center gap-2"><FileText size={16} />Resume</a>
+                <a href={DATA.socials.resume} target="_blank" className="text-blue-400 hover:underline flex items-center gap-2"><FileText size={16} />Resume</a>
             </nav>
 
 
