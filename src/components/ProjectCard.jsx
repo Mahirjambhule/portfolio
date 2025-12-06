@@ -7,7 +7,6 @@ export const ProjectCard = ({ project }) => (
         <div className="flex justify-between items-start mb-4">
             <h3 className="text-xl font-bold text-gray-100">{project.title}</h3>
             <div className="flex gap-3 text-gray-400">
-                {/* Added rel="noopener noreferrer" to both links */}
                 <a href={project.github} target="_blank" rel="noopener noreferrer" className="hover:text-white" aria-label="View GitHub Repository">
                     <Github size={20} />
                 </a>
