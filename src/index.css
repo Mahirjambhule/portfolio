@@ -1,1 +1,19 @@
 @import "tailwindcss";
+html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Optional: Custom Scrollbar for a 'hacker' vibe */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #030712; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1f2937; 
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #374151; 
+  }

@@ -49,16 +49,16 @@ export const DATA = {
     ],
     certifications: [
         {
-          title: "Walmart Advanced Software Engineering Virtual Experience – Forage",
-          date: "May 2025",
-          desc: "Built and optimized a custom heap data structure in Java for memory-efficient task scheduling.",
-          link: "https://drive.google.com/file/d/1Hm7GhY9sr-F_jsQYy999UbrsX0_xgFWT/view?usp=sharing"
+            title: "Walmart Advanced Software Engineering Virtual Experience – Forage",
+            date: "May 2025",
+            desc: "Built and optimized a custom heap data structure in Java for memory-efficient task scheduling.",
+            link: "https://drive.google.com/file/d/1Hm7GhY9sr-F_jsQYy999UbrsX0_xgFWT/view?usp=sharing"
         },
         {
-          title: "Accenture Nordics Software Engineering Virtual Experience – Forage",
-          date: "May 2025",
-          desc: "Completed modules on Agile, Waterfall, SSDLC, and code debugging.",
-          link: "https://drive.google.com/file/d/1FaR0N9K1Lr3kp3y1S9y0uxokvgmyssJf/view?usp=sharing"
+            title: "Accenture Nordics Software Engineering Virtual Experience – Forage",
+            date: "May 2025",
+            desc: "Completed modules on Agile, Waterfall, SSDLC, and code debugging.",
+            link: "https://drive.google.com/file/d/1FaR0N9K1Lr3kp3y1S9y0uxokvgmyssJf/view?usp=sharing"
         }
     ],
     achievements: [
