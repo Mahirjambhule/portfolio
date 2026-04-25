@@ -19,11 +19,11 @@ export const DATA = {
     },
     projects: [
         {
-            title: "TaskMind AI — AI Productivity Platform",
-            desc: "Built an intelligent productivity app that converts scattered tasks into structured daily plans.  Implemented fast AI planning using Groq Llama-3, note summarization using BART, JWT authentication, and deployed via Vercel + Render.",
-            stack: ["MERN Stack", "Groq (Llama-3)", "HuggingFace"],
-            github: "https://github.com/Mahirjambhule/taskmind-ai",
-            live: "https://taskmind-ai-app.vercel.app/login"
+            title: "Orbit AI — Full Stack AI SaaS Platform",
+            desc: "Developed a production-ready AI chat application powered by Google Gemini 2.0 Flash. Features secure JWT auth, persistent MongoDB storage for chat history, and Cloudinary integration for custom wallpapers. Built with a responsive React/Tailwind UI and deployed on Vercel & Render.",
+            stack: ["MERN", "Gemini AI", "Tailwind CSS", "Cloudinary"],
+            github: "https://github.com/Mahirjambhule/orbit-ai",
+            live: "https://orbit-ai-woad.vercel.app"
         },
         {
             title: "ShopVerse — Full Stack E-Commerce Platform",
@@ -33,18 +33,25 @@ export const DATA = {
             live: "https://shopverse-blush.vercel.app"
         },
         {
+            title: "SecureVault — Zero-Knowledge Cloud Storage",
+            desc: "Architected a high-security storage platform featuring client-side AES-256-GCM encryption. Implemented PBKDF2 key derivation and a Brevo-powered SMTP-MFA relay to ensure total data sovereignty. Developed with a MERN-Flask hybrid stack, decoupling encrypted BLOBs in Cloudinary from metadata pointers in MongoDB Atlas.",
+            stack: ["React", "Flask", "AES-256", "MongoDB", "Cloudinary"],
+            github: "https://github.com/Mahirjambhule/secure-vault",
+            live: "https://secure-vault-psi-eight.vercel.app/"
+        },
+        {
+            title: "TaskMind AI — AI Productivity Platform",
+            desc: "Built an intelligent productivity app that converts scattered tasks into structured daily plans.  Implemented fast AI planning using Groq Llama-3, note summarization using BART, JWT authentication, and deployed via Vercel + Render.",
+            stack: ["MERN Stack", "Groq (Llama-3)", "HuggingFace"],
+            github: "https://github.com/Mahirjambhule/taskmind-ai",
+            live: "https://taskmind-ai-app.vercel.app/login"
+        },
+        {
             title: "Snappy — Real-Time Messaging Platform",
             desc: "Built a real-time chat app supporting individual and group messaging using Socket.io. Secured APIs with JWT authentication and hashed passwords. Designed clean Mongoose models for users, messages, and groups, and added auto-generated avatars with real-time message deletion sync.",
             stack: ["MERN", "Socket.io", "Cloudinary"],
             github: "https://github.com/Mahirjambhule/snappy",
             live: "https://snappy-woad.vercel.app"
-        },
-        {
-            title: "Orbit AI — Full Stack AI SaaS Platform",
-            desc: "Developed a production-ready AI chat application powered by Google Gemini 2.0 Flash. Features secure JWT auth, persistent MongoDB storage for chat history, and Cloudinary integration for custom wallpapers. Built with a responsive React/Tailwind UI and deployed on Vercel & Render.",
-            stack: ["MERN", "Gemini AI", "Tailwind CSS", "Cloudinary"],
-            github: "https://github.com/Mahirjambhule/orbit-ai",
-            live: "https://orbit-ai-woad.vercel.app"
         },
     ],
     certifications: [
