@@ -7,12 +7,14 @@ import { Section } from "./components/Section";
 import { Tag } from "./components/Tag";
 import { ProjectCard } from "./components/ProjectCard";
 import { Footer } from "./components/Footer";
-import { Linkedin, Github, Twitter, Instagram } from "lucide-react";
+// 👇 Make sure to import Download and FileText icons
+import { ArrowLeft, Linkedin, Github, Twitter, Instagram, Download, FileText } from "lucide-react";
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
-
-  const [currentView, setCurrentView] = useState('home');
+  
+  // App Router State
+  const [currentView, setCurrentView] = useState('home'); 
 
   useEffect(() => {
     if (isDarkMode) {
@@ -28,6 +30,9 @@ export default function App() {
     if (target === 'blogs') {
       setCurrentView('blogs');
       window.scrollTo({ top: 0, behavior: 'instant' });
+    } else if (target === 'resume') {
+      setCurrentView('resume');
+      window.scrollTo({ top: 0, behavior: 'instant' });
     } else if (target === 'home') {
       setCurrentView('home');
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -35,74 +40,98 @@ export default function App() {
       setCurrentView('home');
       setTimeout(() => {
         const el = document.getElementById(target);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if(el) el.scrollIntoView({ behavior: 'smooth' });
       }, 50);
     }
   };
+
+  // Helper to safely extract Google Drive ID for the iframe preview
+  const getDriveId = (url) => {
+    const match = url.match(/\/d\/(.+?)\//);
+    return match ? match[1] : null;
+  };
+  const driveId = getDriveId(DATA.socials.resume);
 
   return (
     <div className="min-h-screen bg-[#f8faff] text-slate-800 dark:bg-[#111520] dark:text-gray-200 font-sans transition-colors duration-300 selection:bg-purple-500/30">
       <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} onNavigate={handleNavigate} />
 
-      <main className="max-w-5xl mx-auto px-6 pt-30 pb-20 min-h-[85vh]">
+      <main className="max-w-5xl mx-auto px-6 pt-32 pb-20 min-h-[85vh]">
+        
+        {/* =========================================
+            VIEW 1: RESUME VIEWER
+        ========================================= */}
+        {currentView === 'resume' && (
+          <div className="py-8 animate-in fade-in duration-300 h-full flex flex-col">
+            
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+               <div>
+                 <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+                   <FileText size={32} className="text-purple-500" /> My Resume
+                 </h1>
+               </div>
+               
+               {/* The Download Button */}
+               <a 
+                 href={`https://drive.google.com/uc?export=download&id=${driveId}`}
+                 className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-purple-500/30 hover:opacity-90 transition-all font-medium whitespace-nowrap"
+               >
+                 <Download size={20} /> Download PDF
+               </a>
+            </div>
+
+            {/* Live PDF Preview Iframe */}
+            <div className="w-full h-[70vh] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-xl bg-white dark:bg-[#1a2035]">
+              {driveId ? (
+                 <iframe 
+                   src={`https://drive.google.com/file/d/${driveId}/preview`} 
+                   className="w-full h-full border-none"
+                   allow="autoplay"
+                   title="Mahir Jambhule Resume"
+                 ></iframe>
+              ) : (
+                 <div className="w-full h-full flex items-center justify-center text-slate-500">
+                    Resume preview not available. Please click download.
+                 </div>
+              )}
+            </div>
+
+          </div>
+        )}
 
         {/* =========================================
-            VIEW 1: BLOGS FEED (FULL ARTICLES INLINE)
+            VIEW 2: BLOGS FEED (Read-Only)
         ========================================= */}
         {currentView === 'blogs' && (
           <div className="py-12 animate-in fade-in duration-300">
-
             <div className="mb-12 text-center">
-              <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
-                My Articles
-              </h1>
-              <p className="text-slate-600 dark:text-gray-400 text-lg">
-                Thoughts.
-              </p>
+               <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
+                 My Articles
+               </h1>
+               <p className="text-slate-600 dark:text-gray-400 text-lg">
+                 Thoughts, tutorials, and insights on full-stack development.
+               </p>
             </div>
 
             <div className="flex flex-col items-center gap-16 max-w-3xl mx-auto">
               {DATA.blogs.map((blog, idx) => (
-                <div
-                  key={idx}
-                  className="w-full bg-white dark:bg-[#1a2035] border border-slate-200 dark:border-white/5 rounded-2xl p-6 md:p-8 shadow-sm"
-                >
-
-                  {/* Header: Profile, Name, Date */}
+                <div key={idx} className="w-full bg-white dark:bg-[#1a2035] border border-slate-200 dark:border-white/5 rounded-2xl p-6 md:p-8 shadow-sm">
                   <div className="flex items-center gap-4 mb-8 border-b border-slate-100 dark:border-white/5 pb-6">
-                    <div className="w-12 h-12 rounded-full bg-purple-500 overflow-hidden border border-slate-200 dark:border-white/10 shrink-0">
-                      <img src="/mahir.png" alt={DATA.name} className="w-full h-full object-cover object-bottom" />
-                    </div>
-                    <div>
-                      <p className="text-base font-bold text-slate-900 dark:text-white leading-tight">
-                        {DATA.name}
-                      </p>
-                      <p className="text-sm text-purple-600 dark:text-purple-400 mt-1 font-medium">
-                        {blog.date}
-                      </p>
-                    </div>
+                     <div className="w-12 h-12 rounded-full bg-purple-500 overflow-hidden border border-slate-200 dark:border-white/10 shrink-0">
+                        <img src="/profile.png" alt={DATA.name} className="w-full h-full object-cover object-bottom"/>
+                     </div>
+                     <div>
+                       <p className="text-base font-bold text-slate-900 dark:text-white leading-tight">{DATA.name}</p>
+                       <p className="text-sm text-purple-600 dark:text-purple-400 mt-1 font-medium">{blog.date}</p>
+                     </div>
                   </div>
-
-                  {/* Article Title */}
-                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-gray-100 mb-8 leading-tight">
-                    {blog.title}
-                  </h2>
-
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-gray-100 mb-8 leading-tight">{blog.title}</h2>
                   {blog.image && (
-                    <div className="w-full mb-8 rounded-xl overflow-hidden bg-slate-50 dark:bg-black/20 flex justify-center border border-slate-100 dark:border-white/5">
-                      <img
-                        src={blog.image}
-                        alt={blog.title}
-                        className="max-w-full h-auto max-h-[600px] object-contain"
-                      />
-                    </div>
+                      <div className="w-full mb-8 rounded-xl overflow-hidden bg-slate-50 dark:bg-black/20 flex justify-center border border-slate-100 dark:border-white/5">
+                          <img src={blog.image} alt={blog.title} className="max-w-full h-auto max-h-[600px] object-contain" />
+                      </div>
                   )}
-
-                  {/* Full Article Content */}
-                  <div className="text-lg text-slate-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
-                    {blog.content}
-                  </div>
-
+                  <div className="text-lg text-slate-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">{blog.content}</div>
                 </div>
               ))}
             </div>
@@ -110,18 +139,18 @@ export default function App() {
         )}
 
         {/* =========================================
-            VIEW 2: MAIN PORTFOLIO (HOME)
+            VIEW 3: MAIN PORTFOLIO (HOME)
         ========================================= */}
         {currentView === 'home' && (
           <div className="animate-in fade-in duration-300">
             <Hero />
-
+            
             <Section id="about" title="About Me">
               <div className="prose max-w-none text-slate-600 dark:text-gray-400">
                 <p className="text-lg leading-relaxed mb-6">{DATA.about}</p>
               </div>
             </Section>
-
+            
             <Section id="projects" title="Featured Projects">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {DATA.projects.map((project, idx) => (
@@ -129,7 +158,7 @@ export default function App() {
                 ))}
               </div>
             </Section>
-
+            
             <Section id="skills" title="Technical Skills">
               <div className="space-y-6">
                 <div>
@@ -188,7 +217,7 @@ export default function App() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center font-medium text-purple-600 dark:text-purple-400 text-sm hover:text-purple-700 dark:hover:text-purple-300 group"
                       >
-                        View Certificate
+                        View Certificate 
                         <span className="ml-1 transition-transform group-hover:translate-x-1">→</span>
                       </a>
                     )}
