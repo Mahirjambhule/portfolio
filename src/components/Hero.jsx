@@ -7,7 +7,7 @@ export const Hero = () => {
   const lastName = DATA.name.split(" ").slice(1).join(" ");
 
   return (
-    <section className="relative flex items-center min-h-[60vh] w-full pb-15">
+    <section className="relative flex items-center min-h-[60vh] w-full pb-13">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
         <div className="order-2 md:order-1 text-left">
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-slate-900 dark:text-gray-100 leading-[1.05] tracking-tight mb-4">

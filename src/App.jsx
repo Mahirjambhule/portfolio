@@ -44,7 +44,7 @@ export default function App() {
     <div className="min-h-screen bg-[#f8faff] text-slate-800 dark:bg-[#111520] dark:text-gray-200 font-sans transition-colors duration-300 selection:bg-purple-500/30">
       <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} onNavigate={handleNavigate} />
 
-      <main className="max-w-5xl mx-auto px-6 pt-24 pb-20 min-h-[85vh]">
+      <main className="max-w-5xl mx-auto px-6 pt-30 pb-20 min-h-[85vh]">
 
         {/* =========================================
             VIEW 1: BLOGS FEED (FULL ARTICLES INLINE)
