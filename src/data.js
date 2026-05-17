@@ -8,29 +8,24 @@ export const DATA = {
         email: "mailto:mahirjambhule92@gmail.com",
         github: "https://github.com/Mahirjambhule",
         linkedin: "https://www.linkedin.com/in/mahir-jambhule-9b2887258/",
-        resume: "https://drive.google.com/file/d/1_8xhxTI5QxvJOy1gKVR4y-F2wGvMNsxC/view?usp=sharing"
+        resume: "https://drive.google.com/file/d/1_8xhxTI5QxvJOy1gKVR4y-F2wGvMNsxC/view?usp=sharing",
+        twitter: "https://x.com/mahir_j03",
+        instagram: "https://www.instagram.com/mahir_jambhule?igsh=Nmx2d3FrNnNwZjF1"
     },
     skills: {
         languages: ["C++", "C", "Python", "JavaScript"],
-        web: ["React.js", "Node.js", "Express.js", "HTML", "CSS", "Tailwind CSS",],
+        web: ["React.js", "Node.js", "Express.js", "HTML", "CSS", "Tailwind CSS"],
         tools: ["Git", "GitHub", "Postman", "VS Code", "Vercel", "Render"],
         core: ["DSA", "OOPs", "OS", "DBMS", "CN"],
         databases: ["MongoDB", "Mongoose", "MongoDB Atlas", "SQL"]
     },
     projects: [
         {
-            title: "Orbit AI — Full Stack AI SaaS Platform",
-            desc: "Developed a production-ready AI chat application powered by Google Gemini 2.0 Flash. Features secure JWT auth, persistent MongoDB storage for chat history, and Cloudinary integration for custom wallpapers. Built with a responsive React/Tailwind UI and deployed on Vercel & Render.",
-            stack: ["MERN", "Gemini AI", "Tailwind CSS", "Cloudinary"],
-            github: "https://github.com/Mahirjambhule/orbit-ai",
-            live: "https://orbit-ai-woad.vercel.app"
-        },
-        {
-            title: "ShopVerse — Full Stack E-Commerce Platform",
-            desc: "Built a production-ready e-commerce platform with secure JWT auth, Stripe payments, and global state management via Redux Toolkit. Developed an admin CMS, integrated Multer + Cloudinary for media, and deployed a responsive Tailwind UI using Vercel + Render.",
-            stack: ["MERN", "Redux Toolkit", "Stripe", "Cloudinary"],
-            github: "https://github.com/Mahirjambhule/shopverse",
-            live: "https://shopverse-blush.vercel.app"
+            title: "Distributed Task Scheduler — Fault-Tolerant Queue Infrastructure",
+            desc: "Architected a highly scalable, distributed backend task queue using a decoupled Producer-Consumer model. Implemented reliable messaging primitives via Redis BLMOVE and an autonomous self-healing watchdog service using transactional multi-command pipelines to recover stale/crashed tasks without data loss. Containerized across an isolated virtual network via Docker Compose with a PostgreSQL persistent logging layer.",
+            stack: ["Node.js", "Redis", "PostgreSQL", "Docker"],
+            github: "https://github.com/Mahirjambhule/task-scheduler",
+            live: ""
         },
         {
             title: "SecureVault — Zero-Knowledge Cloud Storage",
@@ -40,8 +35,22 @@ export const DATA = {
             live: "https://secure-vault-psi-eight.vercel.app/"
         },
         {
+            title: "ShopVerse — Full Stack E-Commerce Platform",
+            desc: "Built a production-ready e-commerce platform with secure JWT auth, Stripe payments, and global state management via Redux Toolkit. Developed an admin CMS, integrated Multer + Cloudinary for media, and deployed a responsive Tailwind UI using Vercel + Render.",
+            stack: ["MERN", "Redux Toolkit", "Stripe", "Cloudinary"],
+            github: "https://github.com/Mahirjambhule/shopverse",
+            live: "https://shopverse-blush.vercel.app"
+        },
+        {
+            title: "Orbit AI — Full Stack AI SaaS Platform",
+            desc: "Developed a production-ready AI chat application powered by Google Gemini 2.0 Flash. Features secure JWT auth, persistent MongoDB storage for chat history, and Cloudinary integration for custom wallpapers. Built with a responsive React/Tailwind UI and deployed on Vercel & Render.",
+            stack: ["MERN", "Gemini AI", "Tailwind CSS", "Cloudinary"],
+            github: "https://github.com/Mahirjambhule/orbit-ai",
+            live: "https://orbit-ai-woad.vercel.app"
+        },
+        {
             title: "TaskMind AI — AI Productivity Platform",
-            desc: "Built an intelligent productivity app that converts scattered tasks into structured daily plans.  Implemented fast AI planning using Groq Llama-3, note summarization using BART, JWT authentication, and deployed via Vercel + Render.",
+            desc: "Built an intelligent productivity app that converts scattered tasks into structured daily plans. Implemented fast AI planning using Groq Llama-3, note summarization using BART, JWT authentication, and deployed via Vercel + Render.",
             stack: ["MERN Stack", "Groq (Llama-3)", "HuggingFace"],
             github: "https://github.com/Mahirjambhule/taskmind-ai",
             live: "https://taskmind-ai-app.vercel.app/login"
@@ -53,6 +62,7 @@ export const DATA = {
             github: "https://github.com/Mahirjambhule/snappy",
             live: "https://snappy-woad.vercel.app"
         },
+
     ],
     certifications: [
         {
@@ -70,11 +80,16 @@ export const DATA = {
     ],
     achievements: [
         "Solved over 300 coding problems across multiple platforms including LeetCode, GeeksforGeeks, and Coding Ninjas, strengthening algorithmic thinking and problem-solving skills.",
-        "Successfully completed an advanced Certification Course in Data Structures and Algorithms, enhancing programming expertise.",
+        "Successfully completed an advanced Certification Course in Data Structures and Algorithms, enhancing programming expertise."
     ],
     blogs: [
-        { title: "How I built an AI app in a weekend", link: "#" },
-        { title: "Understanding MERN deployment", link: "#" }
+        {
+            title: "Architecting a Fault-Tolerant Distributed Task Scheduler",
+            date: "May 16, 2026",
+            content: "The Distributed Task Scheduler is a production-grade, fault-tolerant infrastructure component built to asynchronously process heavy background workloads with a strict zero data loss guarantee. Instead of forcing a web server to handle demanding tasks synchronously—which slows down the application and risks timeout errors—this system decouples the request from the execution using a highly scalable Producer-Consumer architecture.",
+            image: "/blog-image-1.jpg"
+        },
+        
     ],
-    emailText: "mahirjambhule92@gmail.com",
+    emailText: "mahirjambhule92@gmail.com"
 };
