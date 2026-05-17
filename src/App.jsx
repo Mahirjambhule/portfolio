@@ -109,7 +109,7 @@ export default function App() {
                  My Articles
                </h1>
                <p className="text-slate-600 dark:text-gray-400 text-lg">
-                 Thoughts, tutorials, and insights on full-stack development.
+                 Thoughts.
                </p>
             </div>
 
@@ -118,7 +118,7 @@ export default function App() {
                 <div key={idx} className="w-full bg-white dark:bg-[#1a2035] border border-slate-200 dark:border-white/5 rounded-2xl p-6 md:p-8 shadow-sm">
                   <div className="flex items-center gap-4 mb-8 border-b border-slate-100 dark:border-white/5 pb-6">
                      <div className="w-12 h-12 rounded-full bg-purple-500 overflow-hidden border border-slate-200 dark:border-white/10 shrink-0">
-                        <img src="/profile.png" alt={DATA.name} className="w-full h-full object-cover object-bottom"/>
+                        <img src="/mahir.png" alt={DATA.name} className="w-full h-full object-cover object-bottom"/>
                      </div>
                      <div>
                        <p className="text-base font-bold text-slate-900 dark:text-white leading-tight">{DATA.name}</p>
