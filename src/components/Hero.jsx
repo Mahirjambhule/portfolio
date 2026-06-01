@@ -1,57 +1,71 @@
 import React from "react";
 import { DATA } from "../data";
-import { Linkedin, Github, Twitter, Instagram } from 'lucide-react';
+import { Linkedin, Github, Twitter, Instagram, ArrowRight } from 'lucide-react';
 
 export const Hero = () => {
-  const firstName = DATA.name.split(" ")[0];
-  const lastName = DATA.name.split(" ").slice(1).join(" ");
-
   return (
-    <section className="relative flex items-center min-h-[60vh] w-full pb-13">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
-        <div className="order-2 md:order-1 text-left">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-slate-900 dark:text-gray-100 leading-[1.05] tracking-tight mb-4">
-            {firstName} <br /> {lastName}
-          </h1>
-          <h2 className="text-2xl md:text-3xl font-semibold text-slate-800 dark:text-gray-200 mb-4 tracking-wide">
-            I am a Full-Stack Developer
-          </h2>
-          <p className="text-base text-slate-500 dark:text-gray-400 max-w-md leading-relaxed mb-8">
-            {DATA.tagline}
-          </p>
-          <a 
-            href="#projects" 
-            className="inline-block bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-medium px-8 py-3.5 rounded-lg shadow-lg hover:shadow-purple-500/30 hover:opacity-90 transition-all duration-300"
-          >
-            My Works
-          </a>
-        </div>
+    <section className="relative flex items-center min-h-[60vh] w-full pt-8 pb-12">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center w-full">
 
-        <div className="order-1 md:order-2 flex justify-center lg:justify-end items-center relative">
-          <div className="relative w-[240px] h-[240px] md:w-[320px] md:h-[320px] bg-[#6c48d3] rounded-full overflow-hidden flex items-end justify-center shadow-2xl">
-            <img 
-              src="/mahir.png" 
-              alt={DATA.name} 
-              className="w-[90%] h-[90%] object-cover object-bottom" 
-            />
+        <div className="md:col-span-7 space-y-6 text-left order-2 md:order-1">
+          <div className="space-y-2">
+            <p className="text-base font-semibold text-[#DC2626] tracking-wide">Hi, I'm</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-[#18181B] tracking-tight whitespace-nowrap">
+              {DATA.name}
+            </h1>
+            <p className="text-2xl md:text-3xl font-serif text-[#DC2626] font-medium">
+              Aspiring Software Engineer
+            </p>
+          </div>
+
+          <p className="text-zinc-600 text-lg max-w-xl leading-relaxed font-sans">
+            {DATA.tagline || "Passionate about building scalable web applications and engineering pixel-perfect responsive digital experiences."}
+          </p>
+
+          <div className="flex flex-wrap gap-4 pt-2">
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 bg-[#DC2626] text-white font-medium px-6 py-3 rounded-md hover:bg-[#B91C1C] transition-colors shadow-sm text-sm"
+            >
+              View My Work <ArrowRight size={16} />
+            </a>
+
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 border border-zinc-300 text-[#18181B] bg-white font-medium px-6 py-3 rounded-md hover:bg-zinc-50 transition-colors shadow-sm text-sm"
+            >
+              Contact Me
+            </a>
           </div>
         </div>
-      </div>
 
-      {/* Floating Panel Right Edge Panel updated with X and Instagram links */}
-      <div className="hidden lg:flex flex-col gap-6 absolute -right-12 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500">
-        <a href={DATA.socials.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-purple-500 dark:hover:text-white transition-colors">
-          <Linkedin size={20} />
-        </a>
-        <a href={DATA.socials.github} target="_blank" rel="noopener noreferrer" className="hover:text-purple-500 dark:hover:text-white transition-colors">
-          <Github size={20} />
-        </a>
-        <a href={DATA.socials.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-purple-500 dark:hover:text-white transition-colors">
-          <Twitter size={20} />
-        </a>
-        <a href={DATA.socials.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-purple-500 dark:hover:text-white transition-colors">
-          <Instagram size={20} />
-        </a>
+        <div className="md:col-span-5 order-1 md:order-2 flex flex-col items-center justify-center gap-6">
+
+          <div className="relative w-[200px] h-[200px] md:w-[240px] md:h-[240px] bg-zinc-100 rounded-full overflow-hidden shadow-md border-2 border-zinc-200 flex items-end justify-center transition-transform duration-300 hover:scale-105">
+            <img
+              src="/mahir.png"
+              alt="Mahir Jambhule"
+              className="w-full h-full object-cover object-bottom"
+            />
+          </div>
+
+          <div className="flex items-center gap-6 text-zinc-500 bg-zinc-100/50 border border-zinc-200/60 px-5 py-2.5 rounded-full shadow-sm">
+            <a href={DATA.socials.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#DC2626] transition-colors">
+              <Github size={18} />
+            </a>
+            <a href={DATA.socials.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#DC2626] transition-colors">
+              <Linkedin size={18} />
+            </a>
+            <a href={DATA.socials.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-[#DC2626] transition-colors">
+              <Twitter size={18} />
+            </a>
+            <a href={DATA.socials.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-[#DC2626] transition-colors">
+              <Instagram size={18} />
+            </a>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );

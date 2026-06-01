@@ -1,22 +1,31 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 html {
-    scroll-behavior: smooth;
-  }
-  
-  /* Optional: Custom Scrollbar for a 'hacker' vibe */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #030712; 
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #1f2937; 
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #374151; 
-  }
+  scroll-behavior: smooth;
+  background-color: #FAFAF9;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background-color: #FAFAF9;
+  color: #18181B;
+}
+
+::-webkit-scrollbar {
+  width: 12px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #FAFAF9; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #71717A; 
+  border-radius: 9999px; 
+  border: 2px solid #FAFAF9; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #DC2626; 
+}

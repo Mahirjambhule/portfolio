@@ -2,22 +2,37 @@ import React from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 
 export const ProjectCard = ({ project }) => (
-    <div className="bg-white dark:bg-[#1a2035] border border-slate-200 dark:border-white/5 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-purple-300 dark:hover:border-purple-500/50 transition-all duration-300">
-        <div className="flex justify-between items-start mb-4">
-            <h3 className="text-xl font-bold text-slate-800 dark:text-gray-100">{project.title}</h3>
-            <div className="flex gap-3 text-slate-400 dark:text-gray-500">
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-                    <Github size={20} />
-                </a>
-                <a href={project.live} target="_blank" rel="noopener noreferrer" className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-                    <ExternalLink size={20} />
-                </a>
+    <div className="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-zinc-300 transition-all duration-300 flex flex-col justify-between group">
+        <div>
+            {project.image && (
+                <div className="w-full aspect-video bg-zinc-50 mb-4 rounded-lg overflow-hidden border border-zinc-100">
+                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                </div>
+            )}
+
+            <div className="flex justify-between items-start mb-2">
+                <h3 className="text-xl font-bold text-[#18181B] font-serif group-hover:text-[#DC2626] transition-colors">
+                    {project.title}
+                </h3>
+                <div className="flex gap-3 text-zinc-400">
+                    {project.github && (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#18181B] transition-colors">
+                            <Github size={18} />
+                        </a>
+                    )}
+                    {project.live && (
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="hover:text-[#18181B] transition-colors">
+                            <ExternalLink size={18} />
+                        </a>
+                    )}
+                </div>
             </div>
+            <p className="text-zinc-600 mb-6 text-sm leading-relaxed">{project.desc}</p>
         </div>
-        <p className="text-slate-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">{project.desc}</p>
-        <div className="flex flex-wrap gap-2">
+
+        <div className="flex flex-wrap gap-1.5">
             {project.stack.map((tech) => (
-                <span key={tech} className="text-xs font-semibold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-500/10 border border-purple-100 dark:border-purple-500/20 px-3 py-1 rounded-full">
+                <span key={tech} className="text-[11px] font-medium text-zinc-600 bg-zinc-100 border border-zinc-200 px-2.5 py-0.5 rounded">
                     {tech}
                 </span>
             ))}

@@ -3,7 +3,7 @@ export const DATA = {
     role: "DSA | MERN | Full-Stack Developer ",
     tagline: "I build fast, scalable, and AI-powered web apps.",
     location: "Chandrapur, India",
-    about: "I’m a Computer Engineering student passionate about creating fast, reliable, and user-focused applications. I work mainly with React, Node.js, MongoDB, and modern AI models like Gemini and Llama. I enjoy solving problems and constantly improving my skills.",
+    about: "Hi, I'm Mahir Jambhule, a final-year Computer Engineering student and a full-stack developer who genuinely loves building things for the web. I mostly spend my time working with the MERN stack, focusing on building clean, practical applications that just work smoothly. For me, tech is all about curiosity—I absolutely love learning new tools, tackling fresh challenges, and finding ways to keep growing as a developer every single day. I'm always excited to push my boundaries, learn from others, and collaborate on cool projects!",
     socials: {
         email: "mailto:mahirjambhule92@gmail.com",
         github: "https://github.com/Mahirjambhule",
@@ -33,6 +33,13 @@ export const DATA = {
             stack: ["React", "Flask", "AES-256", "MongoDB", "Cloudinary"],
             github: "https://github.com/Mahirjambhule/secure-vault",
             live: "https://secure-vault-psi-eight.vercel.app/"
+        },
+        {
+            title: "InnerLift AI — Gamified Execution & Mindset Ecosystem",
+            desc: "Engineered a high-performance productivity system featuring an interactive voice mentor stabilized via a mutex-locked Web Speech API engine. Integrated Google Gemini 2.5 Flash for processing natural language journals, generating real-time psychological reflections, and calculating deterministic daily routine architectures. Architected an uncompromised accountability loop ('Codex Disciplina') driven by a strict 48-hour streak decay state machine to enforce user consistency.",
+            stack: ["MERN Stack", "Gemini 2.5 Flash", "Web Speech API", "JWT"],
+            github: "https://github.com/Mahirjambhule/innerlift-productivity-app",
+            live: "https://innerlift-productivity-app.vercel.app/"
         },
         {
             title: "ShopVerse — Full Stack E-Commerce Platform",
@@ -84,12 +91,18 @@ export const DATA = {
     ],
     blogs: [
         {
+            title: "Building InnerLift AI — A Productivity App",
+            date: "June 1, 2026",
+            content: "InnerLift AI is a gamified productivity ecosystem built to keep you focused and disciplined through an interactive AI voice mentor. Powered by Google Gemini 2.5 Flash, the app provides direct, actionable coaching in 3 to 6 sentences max, completely free of conversational fluff, markdown, or emojis. To handle real-time speech recognition smoothly, I implemented a custom mutex-locking mechanism using React refs that blocks duplicate API requests and prevents 429 rate-limit errors. Backed by a 48-hour database streak decay system to gamify consistency, it provides a clean, ultra-responsive execution loop.",
+            image: "/blog-image-2.jpg"
+        },
+        {
             title: "Architecting a Fault-Tolerant Distributed Task Scheduler",
             date: "May 16, 2026",
             content: "The Distributed Task Scheduler is a production-grade, fault-tolerant infrastructure component built to asynchronously process heavy background workloads with a strict zero data loss guarantee. Instead of forcing a web server to handle demanding tasks synchronously—which slows down the application and risks timeout errors—this system decouples the request from the execution using a highly scalable Producer-Consumer architecture.",
             image: "/blog-image-1.jpg"
         },
-        
+
     ],
     emailText: "mahirjambhule92@gmail.com"
 };
