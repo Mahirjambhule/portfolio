@@ -88,10 +88,8 @@ export const Header = ({ onNavigate, currentView }) => {
                                     key={item.name} 
                                     href={`#${item.target}`}
                                     onClick={(e) => handleNavClick(e, item)}
-                                    className={`px-3.5 py-1.5 rounded-md border transition-all duration-200 ${
-                                        isActive 
-                                        ? 'bg-[#DC2626] text-white border-[#DC2626]' 
-                                        : 'border-[#DC2626] text-[#DC2626] hover:bg-[#DC2626] hover:text-white'
+                                    className={`px-3 py-1 rounded border border-[#DC2626] transition-colors ${
+                                        isActive ? 'text-[#DC2626] bg-[#DC2626]/5' : 'text-zinc-600 hover:text-[#DC2626]'
                                     }`}
                                 >
                                     {item.name}
@@ -134,18 +132,18 @@ export const Header = ({ onNavigate, currentView }) => {
 
                         if (isBlogs) {
                             return (
-                                <a 
-                                    key={item.name} 
-                                    href={`#${item.target}`}
-                                    onClick={(e) => handleNavClick(e, item)}
-                                    className={`text-center font-medium text-base px-4 py-2 rounded-md border mt-2 transition-colors ${
-                                        isActive 
-                                        ? 'bg-[#DC2626] text-white border-[#DC2626]' 
-                                        : 'border-[#DC2626] text-[#DC2626] bg-white'
-                                    }`}
-                                >
-                                    {item.name}
-                                </a>
+                                <div className="pt-1">
+                                    <a 
+                                        key={item.name} 
+                                        href={`#${item.target}`}
+                                        onClick={(e) => handleNavClick(e, item)}
+                                        className={`inline-block font-medium text-base px-3 py-1 rounded border border-[#DC2626] transition-colors ${
+                                            isActive ? 'text-[#DC2626] bg-[#DC2626]/5' : 'text-zinc-700'
+                                        }`}
+                                    >
+                                        {item.name}
+                                    </a>
+                                </div>
                             );
                         }
 
