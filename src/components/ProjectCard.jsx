@@ -2,8 +2,7 @@ import React from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 
 export const ProjectCard = ({ project }) => (
-    <div className="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-zinc-300 transition-all duration-300 flex flex-col justify-between group">
-        <div>
+<div className="bg-white border border-zinc-200/80 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-zinc-300 transition-all duration-300 flex flex-col justify-between group">        <div>
             {project.image && (
                 <div className="w-full aspect-video bg-zinc-50 mb-4 rounded-lg overflow-hidden border border-zinc-100">
                     <img src={project.image} alt={project.title} className="w-full h-full object-cover" />

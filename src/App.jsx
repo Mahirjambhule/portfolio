@@ -79,7 +79,7 @@ export default function App() {
   const driveId = getDriveId(DATA.socials.resume);
 
   return (
-    <div className="min-h-screen bg-[#FAFAF9] text-[#18181B] font-sans antialiased selection:bg-[#DC2626]/10 selection:text-[#DC2626]">
+    <div className="min-h-screen bg-[#F5F5F4] text-[#18181B] font-sans antialiased selection:bg-[#DC2626]/10 selection:text-[#DC2626]">
       <Header currentView={currentView} activeSection={activeSection} onNavigate={handleNavigate} />
 
       <main className="max-w-5xl mx-auto px-6 pt-32 pb-20 min-h-[85vh]">
