@@ -11,14 +11,16 @@ body {
   color: #18181B;
   background-color: #F5F5F4;
   
-  /* 🎨 Premium Ambient Blurred Rose Aura */
+  /* 🎨 Static Premium Ambient Blurred Rose Aura */
   background-image: 
-    /* Primary Rose Red glow blob near the top-left hero section (8% opacity) */
-    radial-gradient(circle at 10% 0%, rgba(220, 38, 38, 0.08) 0%, transparent 50%),
-    /* Secondary balancing soft glow further down on the right (4% opacity) */
-    radial-gradient(circle at 85% 40%, rgba(220, 38, 38, 0.04) 0%, transparent 40%);
+    /* Primary Rose Red glow blob locked near top-left */
+    radial-gradient(circle at 15% 15%, rgba(220, 38, 38, 0.08) 0%, transparent 55%),
+    /* Secondary balancing soft glow locked near bottom-right */
+    radial-gradient(circle at 85% 85%, rgba(220, 38, 38, 0.05) 0%, transparent 45%);
   
-  background-attachment: absolute;
+  /* 🔥 This locks the gradients completely in place while content scrolls past */
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   min-height: 100vh;
 }
 
