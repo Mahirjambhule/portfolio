@@ -93,7 +93,7 @@ export const DATA = {
         {
             title: "Building InnerLift AI — A Productivity App",
             date: "June 1, 2026",
-            content: "InnerLift AI is a gamified productivity ecosystem built to keep you focused and disciplined through an interactive AI voice mentor. Powered by Google Gemini 2.5 Flash, the app provides direct, actionable coaching in 3 to 6 sentences max, completely free of conversational fluff, markdown, or emojis. To handle real-time speech recognition smoothly, I implemented a custom mutex-locking mechanism using React refs that blocks duplicate API requests and prevents 429 rate-limit errors. Backed by a 48-hour database streak decay system to gamify consistency, it provides a clean, ultra-responsive execution loop.",
+            content: "InnerLift AI is a multi-tenant productivity platform built on the MERN stack that gamifies discipline through an interactive, AI-driven execution loop. Secured with JWT authentication for strict data isolation, the ecosystem integrates Google Gemini 2.5 Flash to parse natural language voice or text logs into five distinct sentiment scores and deliver immediate, actionable coaching. The platform features a comprehensive suite of modules—including an AI Journal, a Daily Routine Checklist, a Pomodoro Focus Timer, and a shared Community Hub—all bound together by an interactive XP progression loop and a custom 48-hour database streak decay algorithm to enforce routine consistency.",
             image: "/blog-image-2.jpg"
         },
         {
