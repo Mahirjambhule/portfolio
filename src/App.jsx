@@ -169,7 +169,7 @@ export default function App() {
         {/*VIEW 3: MAIN PORTFOLIO (HOME)*/}
         {currentView === 'home' && (
           <div className="animate-in fade-in duration-300 space-y-24">
-            <Hero />
+            <Hero onNavigate={handleNavigate} />
 
             <Section id="about" title="About Me">
               <div className="prose max-w-none text-zinc-600">
