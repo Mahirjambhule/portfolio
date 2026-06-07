@@ -8,8 +8,14 @@ html {
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, sans-serif;
-  background-color: #FAFAF9;
   color: #18181B;
+  
+  /* Warmer base tone with ultra-thin linear grid accents */
+  background-color: #F5F5F4;
+  background-image: 
+    linear-gradient(to right, #18181b04 1px, transparent 1px),
+    linear-gradient(to bottom, #18181b04 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 ::-webkit-scrollbar {
