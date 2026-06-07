@@ -11,14 +11,18 @@ body {
   color: #18181B;
   background-color: #F5F5F4;
   
-  /* 🎨 Static Premium Ambient Blurred Rose Aura */
+  /* 🎨 Symmetrical Wide-Stretching Rose Studio Lighting */
   background-image: 
-    /* Primary Rose Red glow blob locked near top-left */
-    radial-gradient(circle at 15% 15%, rgba(220, 38, 38, 0.08) 0%, transparent 55%),
-    /* Secondary balancing soft glow locked near bottom-right */
-    radial-gradient(circle at 85% 85%, rgba(220, 38, 38, 0.05) 0%, transparent 45%);
+    /* Left-Side Wide Rose Ambient Aura (Smoothed down to 9% opacity, ultra-wide fade) */
+    radial-gradient(circle at 10% 20%, rgba(220, 38, 38, 0.09) 0%, transparent 65%),
+    
+    /* Right-Side Balancing Wide Rose Ambient Aura (Keeps the right side from feeling empty) */
+    radial-gradient(circle at 90% 25%, rgba(220, 38, 38, 0.07) 0%, transparent 60%),
+    
+    /* Subtle Bottom Center baseline glow to seamlessly tie long scrolling views together */
+    radial-gradient(circle at 50% 90%, rgba(220, 38, 38, 0.04) 0%, transparent 50%);
   
-  /* 🔥 This locks the gradients completely in place while content scrolls past */
+  /* Fixed viewport positioning for an immersive scrolling layout layering effect */
   background-attachment: fixed;
   background-repeat: no-repeat;
   min-height: 100vh;
