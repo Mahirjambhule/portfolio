@@ -80,22 +80,6 @@ export const Header = ({ onNavigate, currentView }) => {
                 <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
                     {navItems.map(item => {
                         const isActive = activeSection === item.target;
-                        const isBlogs = item.target === 'blogs';
-
-                        if (isBlogs) {
-                            return (
-                                <a 
-                                    key={item.name} 
-                                    href={`#${item.target}`}
-                                    onClick={(e) => handleNavClick(e, item)}
-                                    className={`px-3 py-1 rounded border border-[#DC2626] transition-colors ${
-                                        isActive ? 'text-[#DC2626] bg-[#DC2626]/5' : 'text-zinc-600 hover:text-[#DC2626]'
-                                    }`}
-                                >
-                                    {item.name}
-                                </a>
-                            );
-                        }
 
                         return (
                             <a 
@@ -127,25 +111,7 @@ export const Header = ({ onNavigate, currentView }) => {
             {isMenuOpen && (
                 <div className="md:hidden absolute top-20 left-0 w-full bg-[#F5F5F4] border-b border-zinc-200 flex flex-col p-6 gap-4 shadow-lg">
                     {navItems.map(item => {
-                        const isBlogs = item.target === 'blogs';
                         const isActive = activeSection === item.target;
-
-                        if (isBlogs) {
-                            return (
-                                <div className="pt-1">
-                                    <a 
-                                        key={item.name} 
-                                        href={`#${item.target}`}
-                                        onClick={(e) => handleNavClick(e, item)}
-                                        className={`inline-block font-medium text-base px-3 py-1 rounded border border-[#DC2626] transition-colors ${
-                                            isActive ? 'text-[#DC2626] bg-[#DC2626]/5' : 'text-zinc-700'
-                                        }`}
-                                    >
-                                        {item.name}
-                                    </a>
-                                </div>
-                            );
-                        }
 
                         return (
                             <a 
