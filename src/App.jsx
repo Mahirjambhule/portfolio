@@ -154,42 +154,44 @@ export default function App() {
     <div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200">
 
       {/* MOBILE RESPONSIVE HEADER */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
+      < div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
           {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
         </div>
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-[var(--text)] transition-colors">
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {/* 📍 FIXED: Changed <X /> to <XIcon /> */}
+          {isMobileMenuOpen ? <XIcon size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* MOBILE SIDEBAR DROPDOWN */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden fixed top-16 left-0 w-full bg-[var(--surface)] border-b border-[var(--border)] z-40 flex flex-col p-6 gap-3 font-mono text-xs shadow-xl">
-          {navItems.map(item => (
+      {
+        isMobileMenuOpen && (
+          <div className="md:hidden fixed top-16 left-0 w-full bg-[var(--surface)] border-b border-[var(--border)] z-40 flex flex-col p-6 gap-3 font-mono text-xs shadow-xl">
+            {navItems.map(item => (
+              <button
+                key={item.name}
+                onClick={() => handleNavigate(item.target, item.isSection)}
+                className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer ${currentSection === item.target
+                  ? 'bg-[var(--card)] text-[var(--accent)] font-semibold'
+                  : 'text-[var(--text-secondary)]'
+                  }`}
+              >
+                {item.icon}
+                {item.name}
+              </button>
+            ))}
             <button
-              key={item.name}
-              onClick={() => handleNavigate(item.target, item.isSection)}
-              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer ${currentSection === item.target
-                ? 'bg-[var(--card)] text-[var(--accent)] font-semibold'
-                : 'text-[var(--text-secondary)]'
-                }`}
+              onClick={() => setDarkMode(!darkMode)}
+              className="w-full mt-2 flex items-center justify-between px-4 py-2.5 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] text-[10px] font-semibold"
             >
-              {item.icon}
-              {item.name}
+              <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
+              <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
             </button>
-          ))}
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="w-full mt-2 flex items-center justify-between px-4 py-2.5 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] text-[10px] font-semibold"
-          >
-            <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
-            <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
-          </button>
-        </div>
-      )}
+          </div>
+        )
+      }
 
-      {/* FIXED ASIDE SIDEBAR DESKTOP COLUMN */}
       <aside className="hidden md:flex w-[230px] bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between shrink-0 p-6 select-none h-full font-mono text-xs uppercase tracking-wider">
         <div className="space-y-6 flex flex-col h-full justify-between">
 
@@ -544,6 +546,6 @@ export default function App() {
         </footer>
 
       </main>
-    </div>
+    </div >
   );
 }
