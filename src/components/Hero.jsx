@@ -9,15 +9,15 @@ export const Hero = ({ onNavigate }) => {
         @keyframes pulse-glow {
           0% {
             transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            box-shadow: 0 0 0 0 rgba(217, 119, 87, 0.7);
           }
           70% {
             transform: scale(1);
-            box-shadow: 0 0 0 6px rgba(220, 38, 38, 0);
+            box-shadow: 0 0 0 6px rgba(217, 119, 87, 0);
           }
           100% {
             transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+            box-shadow: 0 0 0 0 rgba(217, 119, 87, 0);
           }
         }
         .animate-glow {
@@ -26,73 +26,70 @@ export const Hero = ({ onNavigate }) => {
       `}</style>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center w-full">
-        
+
         {/* Left Column: Bio & Text Content */}
         <div className="md:col-span-7 space-y-6 text-left order-2 md:order-1">
           <div className="space-y-2">
-            <p className="text-base font-semibold text-[#DC2626] tracking-wide">Hi, I'm</p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-[#18181B] tracking-tight whitespace-nowrap">
+            <p className="text-base font-semibold text-[var(--accent)] tracking-wide">Hi, I'm</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-[var(--text)] tracking-tight whitespace-nowrap">
               {DATA.name}
             </h1>
-            <p className="text-2xl md:text-3xl font-serif text-[#DC2626] font-medium">
+            <p className="text-2xl md:text-3xl font-serif text-[var(--accent)] font-medium">
               Aspiring Software Engineer
             </p>
           </div>
-          
-          <p className="text-zinc-600 text-lg max-w-xl leading-relaxed font-sans">
+
+          <p className="text-[var(--text-secondary)] text-lg max-w-xl leading-relaxed font-sans">
             {DATA.tagline || "Passionate about building scalable web applications and engineering pixel-perfect responsive digital experiences."}
           </p>
-          
-          {/* Button Grid row hosting the newly added primary resume trigger option */}
+
           <div className="flex flex-wrap gap-3 pt-2">
-            <a 
-              href="#projects" 
-              className="inline-flex items-center gap-2 bg-[#DC2626] text-white font-medium px-5 py-3 rounded-md hover:bg-[#B91C1C] transition-colors shadow-sm text-sm"
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 bg-[var(--accent)] text-[var(--bg)] font-medium px-5 py-3 rounded-[10px] hover:brightness-110 transition-all duration-100 shadow-sm text-sm"
             >
               View My Work <ArrowRight size={16} />
             </a>
 
-            <button 
+            <button
               onClick={() => onNavigate('resume', false)}
-              className="inline-flex items-center gap-2 border border-zinc-300 text-[#18181B] bg-white font-medium px-5 py-3 rounded-md hover:bg-zinc-50 hover:border-zinc-400 transition-colors shadow-sm text-sm"
+              className="inline-flex items-center gap-2 border border-[var(--border)] text-[var(--text)] bg-[var(--card)] font-medium px-5 py-3 rounded-[10px] hover:bg-[var(--surface)] hover:border-[var(--text)]/20 transition-colors duration-100 shadow-sm text-sm"
             >
-              <FileText size={16} className="text-[#DC2626]" /> Resume
+              <FileText size={16} className="text-[var(--accent)]" /> Resume
             </button>
-            
-            <a 
-              href="#contact" 
-              className="inline-flex items-center gap-2 border border-zinc-300 text-[#18181B] bg-white font-medium px-5 py-3 rounded-md hover:bg-zinc-50 hover:border-zinc-400 transition-colors shadow-sm text-sm"
+
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 border border-[var(--border)] text-[var(--text)] bg-[var(--card)] font-medium px-5 py-3 rounded-[10px] hover:bg-[var(--surface)] hover:border-[var(--text)]/20 transition-colors duration-100 shadow-sm text-sm"
             >
               Contact Me
             </a>
           </div>
         </div>
 
-        {/* Right Column: Circular Avatar & Glowing Status Card */}
+        {/* Right Column: Circular Avatar & Status Card */}
         <div className="md:col-span-5 order-1 md:order-2 flex flex-col items-center justify-center gap-6">
-          
-          {/* Circular Image Frame */}
-          <div className="relative w-[200px] h-[200px] md:w-[240px] md:h-[240px] bg-zinc-100 rounded-full overflow-hidden shadow-md border-2 border-zinc-200 flex items-end justify-center transition-transform duration-500 ease-out hover:scale-105 group cursor-pointer">
-            <img 
-              src="/mahir.png" 
-              alt={DATA.name} 
-              className="w-[90%] h-[90%] object-cover object-bottom" 
+
+          <div className="relative w-[200px] h-[200px] md:w-[240px] md:h-[240px] bg-[var(--surface)] rounded-full overflow-hidden shadow-md border-2 border-[var(--border)] flex items-end justify-center transition-transform duration-500 ease-out hover:scale-105 group cursor-pointer">
+            <img
+              src="/mahir.png"
+              alt={DATA.name}
+              className="w-[90%] h-[90%] object-cover object-bottom"
             />
           </div>
 
-          {/* Badge: Open to Opportunity with Real Pulsing Red Glow */}
-          <div className="inline-flex items-center gap-3 bg-white border border-zinc-200 px-5 py-2.5 rounded-full shadow-sm">
+          <div className="inline-flex items-center gap-3 bg-[var(--card)] border border-[var(--border)] px-5 py-2.5 rounded-full shadow-sm">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-glow absolute inline-flex h-full w-full rounded-full bg-[#DC2626] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#DC2626]"></span>
+              <span className="animate-ping [animation-duration:1300ms] absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75 scale-[1.3]"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--accent)]"></span>
             </span>
-            <span className="text-xs font-semibold text-[#18181B] tracking-wide uppercase font-sans">
+            <span className="text-xs font-semibold text-[var(--text)] tracking-wide uppercase font-sans">
               Open to opportunities
             </span>
           </div>
 
         </div>
-        
+
       </div>
     </section>
   );

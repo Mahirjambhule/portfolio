@@ -1,47 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-html {
-  scroll-behavior: smooth;
-  background-color: #F5F5F4;
+:root {
+  --bg: #141413;
+  --surface: #1B1A18;
+  --card: #1D1B19;
+  --border: #2A2825;
+  --text: #F5F2EA;
+  --text-secondary: #B8B4AA;
+  --muted: #8B877D;
+  --accent: #D97757;
+  --accent-blue: #6A9BCC;
+  --accent-green: #788C5D;
 }
 
-body {
+html.light {
+  --bg: #FAF9F5;
+  --surface: #F3F1EA;
+  --border: #E8E6DC;
+  --text: #141413;
+  --text-secondary: #5D5A52;
+  --muted: #B0AEA5;
+  --accent: #D97757;
+  --card: #FDFDFB;
+}
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: Geist, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html, body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: Geist, sans-serif;
   margin: 0;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  color: #18181B;
-  background-color: #F5F5F4;
-  
-  /* 🎨 Symmetrical Wide-Stretching Rose Studio Lighting */
-  background-image: 
-    /* Left-Side Wide Rose Ambient Aura (Smoothed down to 9% opacity, ultra-wide fade) */
-    radial-gradient(circle at 10% 20%, rgba(220, 38, 38, 0.09) 0%, transparent 65%),
-    
-    /* Right-Side Balancing Wide Rose Ambient Aura (Keeps the right side from feeling empty) */
-    radial-gradient(circle at 90% 25%, rgba(220, 38, 38, 0.07) 0%, transparent 60%),
-    
-    /* Subtle Bottom Center baseline glow to seamlessly tie long scrolling views together */
-    radial-gradient(circle at 50% 90%, rgba(220, 38, 38, 0.04) 0%, transparent 50%);
-  
-  /* Fixed viewport positioning for an immersive scrolling layout layering effect */
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  min-height: 100vh;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
-::-webkit-scrollbar {
-  width: 12px; 
+#main-scroll-pane::-webkit-scrollbar {
+  width: 9px; 
+}
+#main-scroll-pane::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+#main-scroll-pane::-webkit-scrollbar-thumb {
+  background: #525252;
+  border-radius: 20px;
+}
+#main-scroll-pane::-webkit-scrollbar-thumb:hover {
+  background: #D97757;
 }
 
-::-webkit-scrollbar-track {
-  background: #FAFAF9; 
-}
-
-::-webkit-scrollbar-thumb {
-  background: #71717A; 
-  border-radius: 9999px; 
-  border: 2px solid #FAFAF9; 
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #DC2626; 
+h1, h2, h3, .font-serif {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -0.01em;
 }

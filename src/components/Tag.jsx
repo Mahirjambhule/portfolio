@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const Tag = ({ text }) => (
-<span className="px-3 py-1.5 text-xs font-semibold bg-zinc-200/60 text-zinc-800 rounded-md border border-zinc-300/40 shadow-xs hover:border-zinc-400/60 transition-colors">        {text}
+    <span className="px-3 py-1.5 text-xs font-semibold bg-[var(--surface)] text-[var(--text-secondary)] rounded-md border border-[var(--border)] shadow-xs hover:border-[var(--accent)]/40 transition-colors">
+        {text}
     </span>
 );

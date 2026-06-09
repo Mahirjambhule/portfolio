@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { DATA } from '../data';
 
-export const Header = ({ onNavigate, currentView }) => {
+export const Header = ({ onNavigate, currentView, darkMode, setDarkMode }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
 
@@ -65,15 +65,15 @@ export const Header = ({ onNavigate, currentView }) => {
     };
 
     return (
-        <header className="fixed top-0 w-full bg-[#F5F5F4]/90 backdrop-blur-md z-50 border-b border-zinc-200/60">
+        <header className="fixed top-0 w-full bg-[var(--bg)]/90 backdrop-blur-md z-50 border-b border-[var(--border)]">
             <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
                 
                 <a 
                     href="#" 
                     onClick={(e) => handleNavClick(e, { target: 'home', isSection: false })} 
-                    className="font-bold text-xl text-[#18181B] tracking-tight font-serif"
+                    className="font-bold text-xl text-[var(--text)] tracking-tight font-serif"
                 >
-                    {DATA.name.split(' ')[0]}<span className="text-[#DC2626]">.</span>
+                    {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
                 </a>
 
                 {/* Desktop Navigation */}
@@ -87,29 +87,44 @@ export const Header = ({ onNavigate, currentView }) => {
                                 href={`#${item.target}`}
                                 onClick={(e) => handleNavClick(e, item)}
                                 className={`relative py-1 transition-colors group ${
-                                    isActive ? 'text-[#DC2626]' : 'text-zinc-600 hover:text-[#DC2626]'
+                                    isActive ? 'text-[var(--accent)]' : 'text-[var(--text-secondary)] hover:text-[var(--accent)]'
                                 }`}
                             >
                                 {item.name}
-                                <span className={`absolute bottom-0 left-0 h-[2px] bg-[#DC2626] transition-all ${
+                                <span className={`absolute bottom-0 left-0 h-[2px] bg-[var(--accent)] transition-all ${
                                     isActive ? 'w-full' : 'w-0 group-hover:w-full'
                                 }`}></span>
                             </a>
                         );
                     })}
+
+                    {/* Integrated Theme Toggle Mechanism on Header Menu bar */}
+                    <button
+                        onClick={() => setDarkMode(!darkMode)}
+                        className="ml-4 p-2 rounded-lg border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors cursor-pointer"
+                        aria-label="Toggle structural color parameters"
+                    >
+                        {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+                    </button>
                 </nav>
 
-                {/* Mobile Menu Trigger */}
+                {/* Mobile Menu Trigger Row hosting Toggle button */}
                 <div className="flex items-center gap-4 md:hidden">
-                    <button className="text-[#18181B]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                    <button
+                        onClick={() => setDarkMode(!darkMode)}
+                        className="p-2 rounded-lg text-[var(--text-secondary)]"
+                    >
+                        {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+                    </button>
+                    <button className="text-[var(--text)]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Dropdown */}
+            {/* Mobile Dropdown Menu with matching system tokens */}
             {isMenuOpen && (
-                <div className="md:hidden absolute top-20 left-0 w-full bg-[#F5F5F4] border-b border-zinc-200 flex flex-col p-6 gap-4 shadow-lg">
+                <div className="md:hidden absolute top-20 left-0 w-full bg-[var(--bg)] border-b border-[var(--border)] flex flex-col p-6 gap-4 shadow-lg">
                     {navItems.map(item => {
                         const isActive = activeSection === item.target;
 
@@ -119,7 +134,7 @@ export const Header = ({ onNavigate, currentView }) => {
                                 href={`#${item.target}`}
                                 onClick={(e) => handleNavClick(e, item)}
                                 className={`font-medium text-base py-1 ${
-                                    isActive ? 'text-[#DC2626]' : 'text-zinc-700'
+                                    isActive ? 'text-[var(--accent)]' : 'text-[var(--text-secondary)]'
                                 }`}
                             >
                                 {item.name}

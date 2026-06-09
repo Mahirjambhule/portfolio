@@ -16,7 +16,6 @@ export const DATA = {
         languages: ["C++", "C", "Python", "JavaScript"],
         web: ["React.js", "Node.js", "Express.js", "HTML", "CSS", "Tailwind CSS"],
         tools: ["Git", "GitHub", "Postman", "VS Code", "Vercel", "Render"],
-        core: ["DSA", "OOPs", "OS", "DBMS", "CN"],
         databases: ["MongoDB", "Mongoose", "MongoDB Atlas", "SQL"]
     },
     projects: [
