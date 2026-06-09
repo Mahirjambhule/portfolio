@@ -80,7 +80,7 @@ export const Hero = ({ onNavigate }) => {
 
           <div className="inline-flex items-center gap-3 bg-[var(--card)] border border-[var(--border)] px-5 py-2.5 rounded-full shadow-sm">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping [animation-duration:1300ms] absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75 scale-[1.3]"></span>
+              <span className="animate-ping [animation-duration:1100ms] absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75 scale-[1.3]"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--accent)]"></span>
             </span>
             <span className="text-xs font-semibold text-[var(--text)] tracking-wide uppercase font-sans">
