@@ -62,6 +62,18 @@ export default function App() {
   }, [darkMode]);
 
   useEffect(() => {
+    setCurrentView('home');
+    setCurrentSection('home');
+
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.origin + window.location.pathname);
+    }
+
+    const container = document.getElementById('main-scroll-pane');
+    if (container) {
+      container.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
     const syncViewWithHash = () => {
       const hash = window.location.hash;
       if (hash === '#/blogs') {
@@ -82,8 +94,6 @@ export default function App() {
         }
       }
     };
-
-    syncViewWithHash();
 
     window.addEventListener('hashchange', syncViewWithHash);
     return () => window.removeEventListener('hashchange', syncViewWithHash);
@@ -183,16 +193,16 @@ export default function App() {
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
           {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
         </div>
-
+        
         <div className="flex items-center gap-2">
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] hover:text-[var(--text)] transition-all cursor-pointer font-semibold text-[10px] font-mono tracking-wider"
           >
             {darkMode ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
             )}
             <span>{darkMode ? 'DARK' : 'LIGHT'}</span>
           </button>
@@ -235,6 +245,10 @@ export default function App() {
                   "Let's build something meaningful."
                 </p>
                 <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
+              </div>
+              
+              <div className="pt-4 border-t border-[var(--border)]/40">
+              <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}.</p>
               </div>
             </div>
           </div>
@@ -293,9 +307,9 @@ export default function App() {
           >
             <div className="flex items-center gap-2">
               {darkMode ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
               )}
               <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
             </div>
@@ -307,8 +321,8 @@ export default function App() {
 
       {/* MAIN CONTENT PANELS */}
       <main id="main-scroll-pane" className="flex-1 overflow-y-auto h-full bg-[var(--bg)] scroll-smooth flex flex-col justify-between">
-        <div className="w-full flex-1">
-          <div className="w-full max-w-5xl mx-auto px-6 md:px-12">
+        <div className="w-full flex flex-col min-h-full justify-between">
+          <div className="w-full max-w-5xl mx-auto px-6 md:px-12 flex-1">
 
             {/* VIEW 1: RESUME CONTROLLER */}
             {currentView === 'resume' && (
@@ -596,12 +610,11 @@ export default function App() {
               </div>
             )}
           </div>
-        </div>
 
-        <footer className="w-full text-center py-12 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
-  {/* 📍 FIXED: Swapped signature to a classic developer fuel statement */}
-  <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
-</footer>
+          <footer className="w-full text-center py-12 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
+          <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
+          </footer>
+        </div>
 
       </main>
     </div>

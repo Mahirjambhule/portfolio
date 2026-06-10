@@ -50,7 +50,6 @@ export const Hero = ({ onNavigate }) => {
         {/* Right Column: Circular Avatar & Status Card */}
         <div className="md:col-span-5 order-1 md:order-2 flex flex-col items-center justify-center gap-6">
 
-          {/* 📍 BOTH THEMES SYNCED: #F3F1EA for light, #9C9C9D for dark */}
           <div className="relative w-[200px] h-[200px] md:w-[240px] md:h-[240px] bg-[#F3F1EA] dark:bg-[#9C9C9D] rounded-full overflow-hidden shadow-md border-2 border-[var(--border)] flex items-end justify-center transition-transform duration-500 ease-out hover:scale-105 group cursor-pointer">
             <img
               src="/mahir.png"
