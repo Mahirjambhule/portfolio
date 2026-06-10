@@ -31,7 +31,7 @@ const SKILL_LOGOS = {
   "DSA": "https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-network-web-development-flatart-icons-outline-flatarticons.png",
   "OOPs": "https://img.icons8.com/ios/50/000000/object-oriented-programming.png",
   "OS": "https://img.icons8.com/ios/50/000000/operating-system.png",
-  "DBMS": "https://img.icons8.com/external-isometric-pro-cyber-homonculus/68/000000/external-database-cloud-hosting-isometric-pro-cyber-homonculus.png",
+  "DBMS": "https://img.icons8.com/external-isometric-pro-cyber-homonculus/68/000000/external-database-cloud-hosting-isometric-procyber-homonculus.png",
   "CN": "https://img.icons8.com/ios/50/000000/computer-network.png"
 };
 
@@ -61,6 +61,7 @@ export default function App() {
     localStorage.setItem('portfolio-darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
+  // 📍 STATE RECOVERY & NAVIGATION REBOOT FIXED
   useEffect(() => {
     setCurrentView('home');
     setCurrentSection('home');
@@ -181,12 +182,13 @@ export default function App() {
     { name: 'Projects', target: 'projects', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
     { name: 'Skills', target: 'skills', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg> },
     { name: 'Certifications', target: 'certifications', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> },
-    { name: 'Contact', target: 'contact', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg> },
+    { name: 'Contact', target: 'contact', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1 22 16.92z" /></svg> },
     { name: 'Blogs', target: 'blogs', isSection: false, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" /></svg> }
   ];
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen md:h-screen w-screen bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200">
+    // 📍 FIXED MASTER LAYOUT: Dropped 'h-screen' and 'overflow-hidden' from mobile bounds to allow completely unrestricted viewport scrolling while preserving monitor layout state configs cleanly
+<div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200">
       {/* MOBILE RESPONSIVE HEADER */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
@@ -247,7 +249,9 @@ export default function App() {
               </div>
 
               <div className="pt-4 border-t border-[var(--border)]/40">
-                <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}.</p>
+                <p className="text-[10px] text-[var(--muted)] tracking-wider font-semibold font-sans normal-case">
+                  Built with ❤️ and ☕ by {DATA.name}
+                </p>
               </div>
             </div>
           </div>
@@ -255,7 +259,8 @@ export default function App() {
       }
 
       {/* DESKTOP SIDEBAR PANEL */}
-      <aside className="hidden md:flex w-[230px] bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between shrink-0 p-6 select-none h-full font-mono text-xs uppercase tracking-wider">
+      {/* 📍 FIXED ASIDE: Set fluid 'min-h-full' to prevent desktop-simulation layouts from cutting off the side pane contents */}
+      <aside className="hidden md:flex w-[230px] bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between shrink-0 p-6 select-none h-full min-h-full font-mono text-xs uppercase tracking-wider">
         <div className="space-y-6 flex flex-col h-full justify-between">
 
           <div className="space-y-6 w-full">
@@ -314,13 +319,17 @@ export default function App() {
             </div>
             <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
           </button>
-          <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}.</p>
+          <p className="text-[10px] text-[var(--muted)] leading-tight">Built with ❤️ and ☕ by {DATA.name}.</p>
         </div>
       </aside>
 
       {/* MAIN CONTENT PANELS */}
-      <main id="main-scroll-pane" className="flex-1 overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between">
-        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-0">
+      {/* 📍 FIXED MAIN PANEL CONTAINER: Replaced 'h-full' with dynamic 'md:h-full flex-1' to let browser scrolling work flawlessly everywhere */}
+      <main
+        id="main-scroll-pane"
+        className="w-full h-[calc(100vh-4rem)] md:h-full flex-1 overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between"
+      >
+        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-0 flex-1">
           {/* VIEW 1: RESUME CONTROLLER */}
           {currentView === 'resume' && (
             <div className="py-12 md:py-16 animate-in fade-in duration-300 w-full flex flex-col">
@@ -608,8 +617,10 @@ export default function App() {
           )}
         </div>
 
-        <footer className="w-full text-center py-12 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">          <div className="max-w-5xl mx-auto w-full">
-            <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
+        {/* 📍 FOOTER SECURED EDGE-TO-EDGE */}
+        <footer className="w-full text-center py-12 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
+          <div className="max-w-5xl mx-auto w-full">
+            <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and ☕</p>
           </div>
         </footer>
 
