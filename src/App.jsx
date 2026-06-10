@@ -184,7 +184,7 @@ export default function App() {
     <div
       className="flex flex-col md:flex-row w-full bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200 overflow-hidden"
       style={{ height: '100dvh' }}
-    >      {/* MOBILE RESPONSIVE HEADER */}
+    > {/* MOBILE RESPONSIVE HEADER */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
           {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
@@ -250,48 +250,51 @@ export default function App() {
       }
 
       {/* DESKTOP SIDEBAR PANEL */}
-      <aside className="hidden md:flex w-[230px] min-w-[230px] max-w-[230px] shrink-0 bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between p-6 select-none h-screen sticky top-0 font-mono text-xs uppercase tracking-wider z-30">        <div className="space-y-6 flex flex-col h-full justify-between">
+      <aside
+        className="hidden md:flex w-[230px] min-w-[230px] max-w-[230px] shrink-0 bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between p-6 select-none md:sticky md:top-0 font-mono text-xs uppercase tracking-wider z-30"
+        style={{ height: '100dvh' }}
+      >
+        <div className="space-y-6 flex flex-col h-full justify-between">
+          <div className="space-y-6 w-full">
+            <div onClick={() => handleNavigate('home', false)} className="font-bold text-2xl text-[var(--text)] tracking-tight font-serif cursor-pointer pl-2 pt-2">
+              Mahir Jambhule<span className="text-[var(--accent)]">.</span>
+            </div>
 
-        <div className="space-y-6 w-full">
-          <div onClick={() => handleNavigate('home', false)} className="font-bold text-2xl text-[var(--text)] tracking-tight font-serif cursor-pointer pl-2 pt-2">
-            {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
+            <nav className="flex flex-col gap-1">
+              {navItems.map(item => {
+                const isActive = currentSection === item.target;
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => handleNavigate(item.target, item.isSection)}
+                    className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer transform-gpu ${isActive
+                      ? 'bg-[var(--card)] text-[var(--accent)] border border-[var(--border)] shadow-xs font-semibold scale-[1.01]'
+                      : 'text-[var(--text-secondary)] hover:bg-[var(--border)]/30 hover:text-[var(--text)]'
+                      }`}
+                  >
+                    <span className="opacity-70">{item.icon}</span>
+                    {item.name}
+                  </button>
+                );
+              })}
+            </nav>
           </div>
 
-          <nav className="flex flex-col gap-1">
-            {navItems.map(item => {
-              const isActive = currentSection === item.target;
-              return (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavigate(item.target, item.isSection)}
-                  className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer transform-gpu ${isActive
-                    ? 'bg-[var(--card)] text-[var(--accent)] border border-[var(--border)] shadow-xs font-semibold scale-[1.01]'
-                    : 'text-[var(--text-secondary)] hover:bg-[var(--border)]/30 hover:text-[var(--text)]'
-                    }`}
-                >
-                  <span className="opacity-70">{item.icon}</span>
-                  {item.name}
-                </button>
-              );
-            })}
-          </nav>
+          <div className="w-full pl-2 space-y-4 border-t border-[var(--border)]/60 pt-6">
+            <div className="text-[10px] space-y-1 text-[var(--text-secondary)] tracking-wide font-medium normal-case font-sans">
+              <p className="text-[var(--accent)] uppercase tracking-wider text-[9px] font-mono font-semibold">Full Stack & AI Enthusiast</p>
+              <p>📍 India</p>
+              <p>🎂 22 Years Old</p>
+            </div>
+
+            <div className="pt-3">
+              <p className="text-sm font-serif tracking-tight text-[var(--text-secondary)] normal-case italic leading-snug select-none text-balance">
+                "Let's build something meaningful."
+              </p>
+              <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
+            </div>
+          </div>
         </div>
-
-        <div className="w-full pl-2 space-y-4 border-t border-[var(--border)]/60 pt-6">
-          <div className="text-[10px] space-y-1 text-[var(--text-secondary)] tracking-wide font-medium normal-case font-sans">
-            <p className="text-[var(--accent)] uppercase tracking-wider text-[9px] font-mono font-semibold">Full Stack & AI Enthusiast</p>
-            <p>📍 India</p>
-            <p>🎂 22 Years Old</p>
-          </div>
-
-          <div className="pt-3">
-            <p className="text-sm font-serif tracking-tight text-[var(--text-secondary)] normal-case italic leading-snug select-none text-balance">
-              "Let's build something meaningful."
-            </p>
-            <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
-          </div>
-        </div>
-      </div>
 
         <div className="space-y-4 pl-2 pt-4 shrink-0">
           <button
