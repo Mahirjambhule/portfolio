@@ -5,26 +5,6 @@ import { ArrowRight, FileText } from 'lucide-react';
 export const Hero = ({ onNavigate }) => {
   return (
     <section className="relative flex items-center min-h-[60vh] w-full pt-8 pb-12">
-      <style>{`
-        @keyframes pulse-glow {
-          0% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(217, 119, 87, 0.7);
-          }
-          70% {
-            transform: scale(1);
-            box-shadow: 0 0 0 6px rgba(217, 119, 87, 0);
-          }
-          100% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(217, 119, 87, 0);
-          }
-        }
-        .animate-glow {
-          animation: pulse-glow 2s infinite;
-        }
-      `}</style>
-
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center w-full">
 
         {/* Left Column: Bio & Text Content */}
@@ -70,7 +50,8 @@ export const Hero = ({ onNavigate }) => {
         {/* Right Column: Circular Avatar & Status Card */}
         <div className="md:col-span-5 order-1 md:order-2 flex flex-col items-center justify-center gap-6">
 
-          <div className="relative w-[200px] h-[200px] md:w-[240px] md:h-[240px] bg-[var(--surface)] rounded-full overflow-hidden shadow-md border-2 border-[var(--border)] flex items-end justify-center transition-transform duration-500 ease-out hover:scale-105 group cursor-pointer">
+          {/* 📍 BOTH THEMES SYNCED: #F3F1EA for light, #9C9C9D for dark */}
+          <div className="relative w-[200px] h-[200px] md:w-[240px] md:h-[240px] bg-[#F3F1EA] dark:bg-[#9C9C9D] rounded-full overflow-hidden shadow-md border-2 border-[var(--border)] flex items-end justify-center transition-transform duration-500 ease-out hover:scale-105 group cursor-pointer">
             <img
               src="/mahir.png"
               alt={DATA.name}

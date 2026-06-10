@@ -40,7 +40,11 @@ const ALL_SKILLS = Object.values(DATA.skills).flat();
 export default function App() {
   const [currentView, setCurrentView] = useState('home');
   const [currentSection, setCurrentSection] = useState('home');
-  const [darkMode, setDarkMode] = useState(true);
+  // 📍 FIXED: Initializes by checking localStorage. Defaults to true (dark mode) if nothing is saved.
+const [darkMode, setDarkMode] = useState(() => {
+  const savedTheme = localStorage.getItem('portfolio-darkMode');
+  return savedTheme !== null ? JSON.parse(savedTheme) : true;
+});
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProjectsExpanded, setIsProjectsExpanded] = useState(false);
 
@@ -55,6 +59,9 @@ export default function App() {
       root.classList.add('light');
       root.classList.remove('dark');
     }
+    
+    // 📍 FIXED: Saves your true/false choice to the browser storage whenever it changes
+    localStorage.setItem('portfolio-darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
   useEffect(() => {
