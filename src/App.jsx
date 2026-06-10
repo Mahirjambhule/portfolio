@@ -31,7 +31,7 @@ const SKILL_LOGOS = {
   "DSA": "https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-network-web-development-flatart-icons-outline-flatarticons.png",
   "OOPs": "https://img.icons8.com/ios/50/000000/object-oriented-programming.png",
   "OS": "https://img.icons8.com/ios/50/000000/operating-system.png",
-  "DBMS": "https://img.icons8.com/external-isometric-pro-cyber-homonculus/68/000000/external-database-cloud-hosting-isometric-procyber-homonculus.png",
+  "DBMS": "https://img.icons8.com/external-isometric-pro-cyber-homonculus/68/000000/external-database-cloud-hosting-isometric-pro-cyber-homonculus.png",
   "CN": "https://img.icons8.com/ios/50/000000/computer-network.png"
 };
 
@@ -61,7 +61,7 @@ export default function App() {
     localStorage.setItem('portfolio-darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
-  // 📍 STATE RECOVERY & NAVIGATION REBOOT FIXED
+  // 📍 REFRESH ENGINE: Locks state to homepage top view window on load hook
   useEffect(() => {
     setCurrentView('home');
     setCurrentSection('home');
@@ -70,10 +70,7 @@ export default function App() {
       window.history.replaceState(null, '', window.location.origin + window.location.pathname);
     }
 
-    const container = document.getElementById('main-scroll-pane');
-    if (container) {
-      container.scrollTo({ top: 0, behavior: 'instant' });
-    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
 
     const syncViewWithHash = () => {
       const hash = window.location.hash;
@@ -104,12 +101,10 @@ export default function App() {
     if (currentView !== 'home') return;
 
     const sectionIds = ['hero', 'about', 'projects', 'skills', 'certifications', 'contact'];
-    const container = document.getElementById('main-scroll-pane');
-    if (!container) return;
-
+    
     const observerOptions = {
-      root: container,
-      rootMargin: '-35% 0px -45% 0px',
+      root: null, 
+      rootMargin: '-30% 0px -40% 0px',
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -140,13 +135,13 @@ export default function App() {
 
     if (target === 'blogs') {
       window.location.hash = '/blogs';
-      document.getElementById('main-scroll-pane')?.scrollTo({ top: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     } else if (target === 'resume') {
       window.location.hash = '/resume';
-      document.getElementById('main-scroll-pane')?.scrollTo({ top: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     } else if (target === 'home') {
       window.location.hash = '/';
-      document.getElementById('main-scroll-pane')?.scrollTo({ top: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     } else if (isSection) {
       window.location.hash = target;
       setCurrentView('home');
@@ -182,28 +177,29 @@ export default function App() {
     { name: 'Projects', target: 'projects', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
     { name: 'Skills', target: 'skills', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg> },
     { name: 'Certifications', target: 'certifications', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> },
-    { name: 'Contact', target: 'contact', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1 22 16.92z" /></svg> },
+    { name: 'Contact', target: 'contact', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg> },
     { name: 'Blogs', target: 'blogs', isSection: false, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" /></svg> }
   ];
 
   return (
-    // 📍 FIXED MASTER LAYOUT: Dropped 'h-screen' and 'overflow-hidden' from mobile bounds to allow completely unrestricted viewport scrolling while preserving monitor layout state configs cleanly
+    // 📍 FIX 1: Responsive Grid Columns. On simulated or real desktops, it builds a solid 230px container structure. 
+    // On native mobile devices, it uses a 1-column responsive layout. Window handles all scrolling. No touch locking can happen.
 <div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200">
       {/* MOBILE RESPONSIVE HEADER */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
           {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
         </div>
-
+        
         <div className="flex items-center gap-2">
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] hover:text-[var(--text)] transition-all cursor-pointer font-semibold text-[10px] font-mono tracking-wider"
           >
             {darkMode ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
             )}
             <span>{darkMode ? 'DARK' : 'LIGHT'}</span>
           </button>
@@ -247,7 +243,7 @@ export default function App() {
                 </p>
                 <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
               </div>
-
+              
               <div className="pt-4 border-t border-[var(--border)]/40">
                 <p className="text-[10px] text-[var(--muted)] tracking-wider font-semibold font-sans normal-case">
                   Built with ❤️ and ☕ by {DATA.name}
@@ -259,9 +255,9 @@ export default function App() {
       }
 
       {/* DESKTOP SIDEBAR PANEL */}
-      {/* 📍 FIXED ASIDE: Set fluid 'min-h-full' to prevent desktop-simulation layouts from cutting off the side pane contents */}
-      <aside className="hidden md:flex w-[230px] bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between shrink-0 p-6 select-none h-full min-h-full font-mono text-xs uppercase tracking-wider">
-        <div className="space-y-6 flex flex-col h-full justify-between">
+      {/* 📍 FIX 2: Fixed Sticky Positioning. On desktops, it stays statically frozen to your screen. On desktop simulation mode, it naturally flows inside your grid track line without breaking layout views. */}
+{/* 📍 FIXED SIDEBAR WIDTH: Added min-w, max-w, and shrink-0 to completely stop it from stretching out */}
+<aside className="hidden md:flex w-[230px] min-w-[230px] max-w-[230px] shrink-0 bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between p-6 select-none h-screen sticky top-0 font-mono text-xs uppercase tracking-wider z-30">        <div className="space-y-6 flex flex-col h-full justify-between">
 
           <div className="space-y-6 w-full">
             <div onClick={() => handleNavigate('home', false)} className="font-bold text-2xl text-[var(--text)] tracking-tight font-serif cursor-pointer pl-2 pt-2">
@@ -311,28 +307,29 @@ export default function App() {
           >
             <div className="flex items-center gap-2">
               {darkMode ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
               )}
               <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
             </div>
             <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
           </button>
-          <p className="text-[10px] text-[var(--muted)] leading-tight">Built with ❤️ and ☕ by {DATA.name}.</p>
+          <p>© {new Date().getFullYear()} {DATA.name}</p>
         </div>
       </aside>
 
       {/* MAIN CONTENT PANELS */}
-      {/* 📍 FIXED MAIN PANEL CONTAINER: Replaced 'h-full' with dynamic 'md:h-full flex-1' to let browser scrolling work flawlessly everywhere */}
-      <main
-        id="main-scroll-pane"
-        className="w-full h-[calc(100vh-4rem)] md:h-full flex-1 overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between"
-      >
-        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-0 flex-1">
+      {/* 📍 FIX 3: Natural Scroll Wrapper. Completely dropped inner overflows and custom heights so browser viewport engines scroll flawlessly. */}
+      <main 
+  id="main-scroll-pane" 
+  className="flex-1 h-full overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between"
+  style={{ WebkitOverflowScrolling: 'touch' }}
+>        
+        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 flex-1">
           {/* VIEW 1: RESUME CONTROLLER */}
           {currentView === 'resume' && (
-            <div className="py-12 md:py-16 animate-in fade-in duration-300 w-full flex flex-col">
+            <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full flex flex-col">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 w-full">
                 <h1 className="text-3xl md:text-4xl font-bold text-[var(--text)] tracking-tight flex items-center gap-3 font-serif">
                   <FileText size={28} className="text-[var(--accent)]" /> My Resume
@@ -356,7 +353,7 @@ export default function App() {
 
           {/* VIEW 2: LOG ARTICLES CONTAINER */}
           {currentView === 'blogs' && (
-            <div className="py-12 md:py-8 animate-in fade-in duration-300 w-full">
+            <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full">
               <div className="mb-12 text-center">
                 <h1 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-2 tracking-tight font-serif">My Articles</h1>
                 <p className="text-[var(--text-secondary)] text-base md:text-lg">Thoughts, journeys, and engineering insights.</p>
@@ -390,7 +387,7 @@ export default function App() {
           {currentView === 'home' && (
             <div className="w-full flex flex-col">
 
-              <div id="hero" className="min-h-[calc(100vh-4rem)] md:min-h-screen flex items-center justify-center w-full">
+              <div id="hero" className="min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-6rem)] flex items-center justify-center w-full">
                 <div className="w-full py-6 md:py-12">
                   <Hero onNavigate={handleNavigate} />
                 </div>
@@ -617,10 +614,10 @@ export default function App() {
           )}
         </div>
 
-        {/* 📍 FOOTER SECURED EDGE-TO-EDGE */}
-        <footer className="w-full text-center py-12 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
+        {/* FOOTER CONTAINER */}
+        <footer className="w-full text-center py-12 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0 mt-auto">
           <div className="max-w-5xl mx-auto w-full">
-            <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and ☕</p>
+            <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
           </div>
         </footer>
 
