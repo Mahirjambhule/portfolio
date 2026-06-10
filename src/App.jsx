@@ -61,7 +61,6 @@ export default function App() {
     localStorage.setItem('portfolio-darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
-  // 📍 REFRESH ENGINE: Locks state to homepage top view window on load hook
   useEffect(() => {
     setCurrentView('home');
     setCurrentSection('home');
@@ -101,9 +100,9 @@ export default function App() {
     if (currentView !== 'home') return;
 
     const sectionIds = ['hero', 'about', 'projects', 'skills', 'certifications', 'contact'];
-    
+
     const observerOptions = {
-      root: null, 
+      root: null,
       rootMargin: '-30% 0px -40% 0px',
     };
 
@@ -182,24 +181,22 @@ export default function App() {
   ];
 
   return (
-    // 📍 FIX 1: Responsive Grid Columns. On simulated or real desktops, it builds a solid 230px container structure. 
-    // On native mobile devices, it uses a 1-column responsive layout. Window handles all scrolling. No touch locking can happen.
-<div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200">
+    <div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200">
       {/* MOBILE RESPONSIVE HEADER */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
           {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] hover:text-[var(--text)] transition-all cursor-pointer font-semibold text-[10px] font-mono tracking-wider"
           >
             {darkMode ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
             )}
             <span>{darkMode ? 'DARK' : 'LIGHT'}</span>
           </button>
@@ -243,62 +240,56 @@ export default function App() {
                 </p>
                 <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
               </div>
-              
-              <div className="pt-4 border-t border-[var(--border)]/40">
-                <p className="text-[10px] text-[var(--muted)] tracking-wider font-semibold font-sans normal-case">
-                  Built with ❤️ and ☕ by {DATA.name}
-                </p>
-              </div>
+
+              <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}</p>
             </div>
           </div>
         )
       }
 
       {/* DESKTOP SIDEBAR PANEL */}
-      {/* 📍 FIX 2: Fixed Sticky Positioning. On desktops, it stays statically frozen to your screen. On desktop simulation mode, it naturally flows inside your grid track line without breaking layout views. */}
-{/* 📍 FIXED SIDEBAR WIDTH: Added min-w, max-w, and shrink-0 to completely stop it from stretching out */}
-<aside className="hidden md:flex w-[230px] min-w-[230px] max-w-[230px] shrink-0 bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between p-6 select-none h-screen sticky top-0 font-mono text-xs uppercase tracking-wider z-30">        <div className="space-y-6 flex flex-col h-full justify-between">
+      <aside className="hidden md:flex w-[230px] min-w-[230px] max-w-[230px] shrink-0 bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between p-6 select-none h-screen sticky top-0 font-mono text-xs uppercase tracking-wider z-30">        <div className="space-y-6 flex flex-col h-full justify-between">
 
-          <div className="space-y-6 w-full">
-            <div onClick={() => handleNavigate('home', false)} className="font-bold text-2xl text-[var(--text)] tracking-tight font-serif cursor-pointer pl-2 pt-2">
-              {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
-            </div>
-
-            <nav className="flex flex-col gap-1">
-              {navItems.map(item => {
-                const isActive = currentSection === item.target;
-                return (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavigate(item.target, item.isSection)}
-                    className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer transform-gpu ${isActive
-                      ? 'bg-[var(--card)] text-[var(--accent)] border border-[var(--border)] shadow-xs font-semibold scale-[1.01]'
-                      : 'text-[var(--text-secondary)] hover:bg-[var(--border)]/30 hover:text-[var(--text)]'
-                      }`}
-                  >
-                    <span className="opacity-70">{item.icon}</span>
-                    {item.name}
-                  </button>
-                );
-              })}
-            </nav>
+        <div className="space-y-6 w-full">
+          <div onClick={() => handleNavigate('home', false)} className="font-bold text-2xl text-[var(--text)] tracking-tight font-serif cursor-pointer pl-2 pt-2">
+            {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
           </div>
 
-          <div className="w-full pl-2 space-y-4 border-t border-[var(--border)]/60 pt-6">
-            <div className="text-[10px] space-y-1 text-[var(--text-secondary)] tracking-wide font-medium normal-case font-sans">
-              <p className="text-[var(--accent)] uppercase tracking-wider text-[9px] font-mono font-semibold">Full Stack & AI Enthusiast</p>
-              <p>📍 India</p>
-              <p>🎂 22 Years Old</p>
-            </div>
+          <nav className="flex flex-col gap-1">
+            {navItems.map(item => {
+              const isActive = currentSection === item.target;
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavigate(item.target, item.isSection)}
+                  className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer transform-gpu ${isActive
+                    ? 'bg-[var(--card)] text-[var(--accent)] border border-[var(--border)] shadow-xs font-semibold scale-[1.01]'
+                    : 'text-[var(--text-secondary)] hover:bg-[var(--border)]/30 hover:text-[var(--text)]'
+                    }`}
+                >
+                  <span className="opacity-70">{item.icon}</span>
+                  {item.name}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
 
-            <div className="pt-3">
-              <p className="text-sm font-serif tracking-tight text-[var(--text-secondary)] normal-case italic leading-snug select-none text-balance">
-                "Let's build something meaningful."
-              </p>
-              <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
-            </div>
+        <div className="w-full pl-2 space-y-4 border-t border-[var(--border)]/60 pt-6">
+          <div className="text-[10px] space-y-1 text-[var(--text-secondary)] tracking-wide font-medium normal-case font-sans">
+            <p className="text-[var(--accent)] uppercase tracking-wider text-[9px] font-mono font-semibold">Full Stack & AI Enthusiast</p>
+            <p>📍 India</p>
+            <p>🎂 22 Years Old</p>
+          </div>
+
+          <div className="pt-3">
+            <p className="text-sm font-serif tracking-tight text-[var(--text-secondary)] normal-case italic leading-snug select-none text-balance">
+              "Let's build something meaningful."
+            </p>
+            <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
           </div>
         </div>
+      </div>
 
         <div className="space-y-4 pl-2 pt-4 shrink-0">
           <button
@@ -307,26 +298,25 @@ export default function App() {
           >
             <div className="flex items-center gap-2">
               {darkMode ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
               )}
               <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
             </div>
             <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
           </button>
-          <p>© {new Date().getFullYear()} {DATA.name}</p>
+          <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}</p> 
         </div>
       </aside>
 
       {/* MAIN CONTENT PANELS */}
-      {/* 📍 FIX 3: Natural Scroll Wrapper. Completely dropped inner overflows and custom heights so browser viewport engines scroll flawlessly. */}
-      <main 
-  id="main-scroll-pane" 
-  className="flex-1 h-full overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between"
-  style={{ WebkitOverflowScrolling: 'touch' }}
->        
-        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 flex-1">
+      <main
+        id="main-scroll-pane"
+        className="flex-1 h-full overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
+        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 pb-24 flex-1">
           {/* VIEW 1: RESUME CONTROLLER */}
           {currentView === 'resume' && (
             <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full flex flex-col">
