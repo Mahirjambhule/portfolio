@@ -69,25 +69,34 @@ export default function App() {
       window.history.replaceState(null, '', window.location.origin + window.location.pathname);
     }
 
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    const container = document.getElementById('main-scroll-pane');
+    if (container) container.scrollTop = 0;
 
     const syncViewWithHash = () => {
       const hash = window.location.hash;
+      const scrollPane = document.getElementById('main-scroll-pane');
+
       if (hash === '#/blogs') {
         setCurrentView('blogs');
         setCurrentSection('blogs');
+        if (scrollPane) scrollPane.scrollTop = 0;
       } else if (hash === '#/resume') {
         setCurrentView('resume');
         setCurrentSection('resume');
+        if (scrollPane) scrollPane.scrollTop = 0;
       } else {
         setCurrentView('home');
         const cleanSection = hash.replace('#', '');
         if (cleanSection && cleanSection !== '/') {
           setCurrentSection(cleanSection);
           const el = document.getElementById(cleanSection === 'home' ? 'hero' : cleanSection);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          if (el && scrollPane) {
+            const targetOffset = el.offsetTop;
+            scrollPane.scrollTo({ top: targetOffset, behavior: 'smooth' });
+          }
         } else {
           setCurrentSection('home');
+          if (scrollPane) scrollPane.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
     };
@@ -131,16 +140,20 @@ export default function App() {
   const handleNavigate = (target, isSection) => {
     setIsMobileMenuOpen(false);
     setCurrentSection(target);
+    const scrollPane = document.getElementById('main-scroll-pane');
 
     if (target === 'blogs') {
+      setCurrentView('blogs');
       window.location.hash = '/blogs';
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (scrollPane) scrollPane.scrollTop = 0;
     } else if (target === 'resume') {
+      setCurrentView('resume');
       window.location.hash = '/resume';
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (scrollPane) scrollPane.scrollTop = 0;
     } else if (target === 'home') {
+      setCurrentView('home');
       window.location.hash = '/';
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (scrollPane) scrollPane.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (isSection) {
       window.location.hash = target;
       setCurrentView('home');
@@ -149,10 +162,10 @@ export default function App() {
       setTimeout(() => {
         const actualTarget = target === 'home' ? 'hero' : target;
         const el = document.getElementById(actualTarget);
-        const container = document.getElementById('main-scroll-pane');
-        if (el && container) {
-          const targetOffsetTop = el.offsetTop - 20;
-          container.scrollTo({ top: targetOffsetTop, behavior: 'smooth' });
+        if (el && scrollPane) {
+          // Calculate exact position relative to the main scroll container canvas
+          const targetOffsetTop = el.offsetTop;
+          scrollPane.scrollTo({ top: targetOffsetTop, behavior: 'smooth' });
 
           setTimeout(() => {
             isNavClickRef.current = false;
@@ -257,7 +270,7 @@ export default function App() {
         <div className="space-y-6 flex flex-col h-full justify-between">
           <div className="space-y-6 w-full">
             <div onClick={() => handleNavigate('home', false)} className="font-bold text-2xl text-[var(--text)] tracking-tight font-serif cursor-pointer pl-2 pt-2">
-              Mahir Jambhule<span className="text-[var(--accent)]">.</span>
+              Mahir<span className="text-[var(--accent)]">.</span>
             </div>
 
             <nav className="flex flex-col gap-1">
@@ -534,7 +547,7 @@ export default function App() {
                 </div>
               </Section>
 
-              <Section id="contact" title="Get In Touch" className="w-full pt-8 pb-16">
+              <Section id="contact" title="Get In Touch" className="w-full pt-8 pb-1">
                 <div className="text-center py-12 bg-[var(--card)] rounded-2xl shadow-sm border border-[var(--border)] w-full">
                   <p className="text-[var(--text-secondary)] text-lg mb-6 max-w-xl mx-auto px-4 font-sans">
                     I am currently looking for full-time opportunities. Whether you have a question or just want to say hi, my inbox is always open.
@@ -609,7 +622,7 @@ export default function App() {
         </div>
 
         {/* FOOTER CONTAINER */}
-        <footer className="w-full text-center py-12 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0 mt-auto">
+        <footer className="w-full text-center py-10 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0 mt-auto">
           <div className="max-w-5xl mx-auto w-full">
             <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
           </div>
