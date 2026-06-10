@@ -181,7 +181,7 @@ export default function App() {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen md:h-screen w-full bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200 overflow-x-hidden">
+    <div className="flex flex-col md:flex-row h-screen w-full bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200 overflow-hidden md:overflow-hidden">
       {/* MOBILE RESPONSIVE HEADER */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
@@ -306,16 +306,12 @@ export default function App() {
             </div>
             <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
           </button>
-          <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}</p> 
+          <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}</p>
         </div>
       </aside>
 
       {/* MAIN CONTENT PANELS */}
-      <main
-        id="main-scroll-pane"
-        className="flex-1 h-full overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between"
-        style={{ WebkitOverflowScrolling: 'touch' }}
-      >
+      <main id="main-scroll-pane" className="flex-1 h-screen md:h-full overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between">
         <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 pb-24 flex-1">
           {/* VIEW 1: RESUME CONTROLLER */}
           {currentView === 'resume' && (
