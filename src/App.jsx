@@ -181,7 +181,7 @@ export default function App() {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200">
+    <div className="flex flex-col md:flex-row h-screen max-h-screen w-full bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200 overflow-hidden md:overflow-visible">
       {/* MOBILE RESPONSIVE HEADER */}
       <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
