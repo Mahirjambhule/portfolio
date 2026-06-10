@@ -62,11 +62,31 @@ export default function App() {
   }, [darkMode]);
 
   useEffect(() => {
-    setCurrentView('home');
-    setCurrentSection('home');
-    if (window.location.hash) {
-      window.history.replaceState(null, '', ' ');
-    }
+    const syncViewWithHash = () => {
+      const hash = window.location.hash;
+      if (hash === '#/blogs') {
+        setCurrentView('blogs');
+        setCurrentSection('blogs');
+      } else if (hash === '#/resume') {
+        setCurrentView('resume');
+        setCurrentSection('resume');
+      } else {
+        setCurrentView('home');
+        const cleanSection = hash.replace('#', '');
+        if (cleanSection && cleanSection !== '/') {
+          setCurrentSection(cleanSection);
+          const el = document.getElementById(cleanSection === 'home' ? 'hero' : cleanSection);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          setCurrentSection('home');
+        }
+      }
+    };
+
+    syncViewWithHash();
+
+    window.addEventListener('hashchange', syncViewWithHash);
+    return () => window.removeEventListener('hashchange', syncViewWithHash);
   }, []);
 
   useEffect(() => {
@@ -108,15 +128,16 @@ export default function App() {
     setCurrentSection(target);
 
     if (target === 'blogs') {
-      setCurrentView('blogs');
+      window.location.hash = '/blogs';
       document.getElementById('main-scroll-pane')?.scrollTo({ top: 0, behavior: 'instant' });
     } else if (target === 'resume') {
-      setCurrentView('resume');
+      window.location.hash = '/resume';
       document.getElementById('main-scroll-pane')?.scrollTo({ top: 0, behavior: 'instant' });
     } else if (target === 'home') {
-      setCurrentView('home');
+      window.location.hash = '/';
       document.getElementById('main-scroll-pane')?.scrollTo({ top: 0, behavior: 'instant' });
     } else if (isSection) {
+      window.location.hash = target;
       setCurrentView('home');
       isNavClickRef.current = true;
 
@@ -158,44 +179,69 @@ export default function App() {
     <div className="flex flex-col md:flex-row h-screen w-screen overflow-hidden bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200">
 
       {/* MOBILE RESPONSIVE HEADER */}
-      < div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
+      <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
         <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
           {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
         </div>
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-[var(--text)] transition-colors">
-          {/* 📍 FIXED: Changed <X /> to <XIcon /> */}
-          {isMobileMenuOpen ? <XIcon size={24} /> : <Menu size={24} />}
-        </button>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] hover:text-[var(--text)] transition-all cursor-pointer font-semibold text-[10px] font-mono tracking-wider"
+          >
+            {darkMode ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+            )}
+            <span>{darkMode ? 'DARK' : 'LIGHT'}</span>
+          </button>
+
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-[var(--text)] transition-colors">
+            {isMobileMenuOpen ? <XIcon size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* MOBILE SIDEBAR DROPDOWN */}
       {
         isMobileMenuOpen && (
-          <div className="md:hidden fixed top-16 left-0 w-full bg-[var(--surface)] border-b border-[var(--border)] z-40 flex flex-col p-6 gap-3 font-mono text-xs shadow-xl">
-            {navItems.map(item => (
-              <button
-                key={item.name}
-                onClick={() => handleNavigate(item.target, item.isSection)}
-                className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer ${currentSection === item.target
-                  ? 'bg-[var(--card)] text-[var(--accent)] font-semibold'
-                  : 'text-[var(--text-secondary)]'
-                  }`}
-              >
-                {item.icon}
-                {item.name}
-              </button>
-            ))}
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="w-full mt-2 flex items-center justify-between px-4 py-2.5 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] text-[10px] font-semibold"
-            >
-              <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
-              <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
-            </button>
+          <div className="md:hidden fixed top-16 left-0 w-full bg-[var(--surface)] border-b border-[var(--border)] z-40 flex flex-col p-6 gap-5 font-mono text-xs shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <nav className="flex flex-col gap-2">
+              {navItems.map(item => (
+                <button
+                  key={item.name}
+                  onClick={() => handleNavigate(item.target, item.isSection)}
+                  className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer ${currentSection === item.target
+                    ? 'bg-[var(--card)] text-[var(--accent)] font-semibold'
+                    : 'text-[var(--text-secondary)]'
+                    }`}
+                >
+                  {item.icon}
+                  {item.name}
+                </button>
+              ))}
+            </nav>
+
+            <div className="w-full pl-2 space-y-4 border-t border-[var(--border)]/60 pt-5 mt-2">
+              <div className="text-[10px] space-y-1 text-[var(--text-secondary)] tracking-wide font-medium normal-case font-sans">
+                <p className="text-[var(--accent)] uppercase tracking-wider text-[9px] font-mono font-semibold">Full Stack & AI Enthusiast</p>
+                <p>📍 India</p>
+                <p>🎂 22 Years Old</p>
+              </div>
+
+              <div className="pt-2">
+                <p className="text-sm font-serif tracking-tight text-[var(--text-secondary)] normal-case italic leading-snug select-none text-balance">
+                  "Let's build something meaningful."
+                </p>
+                <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
+              </div>
+            </div>
           </div>
         )
       }
 
+      {/* DESKTOP SIDEBAR PANEL */}
       <aside className="hidden md:flex w-[230px] bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between shrink-0 p-6 select-none h-full font-mono text-xs uppercase tracking-wider">
         <div className="space-y-6 flex flex-col h-full justify-between">
 
@@ -245,7 +291,14 @@ export default function App() {
             onClick={() => setDarkMode(!darkMode)}
             className="w-full flex items-center justify-between px-3 py-2 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] hover:text-[var(--text)] transition-all cursor-pointer font-semibold text-[10px]"
           >
-            <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
+            <div className="flex items-center gap-2">
+              {darkMode ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
+              )}
+              <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
+            </div>
             <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
           </button>
           <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}.</p>
@@ -546,10 +599,11 @@ export default function App() {
         </div>
 
         <footer className="w-full text-center py-12 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
-          <p>© {new Date().getFullYear()} {DATA.name}. All rights reserved.</p>
-        </footer>
+  {/* 📍 FIXED: Swapped signature to a classic developer fuel statement */}
+  <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
+</footer>
 
       </main>
-    </div >
+    </div>
   );
 }
