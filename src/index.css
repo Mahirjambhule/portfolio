@@ -33,6 +33,10 @@ html.light {
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   margin: 0;

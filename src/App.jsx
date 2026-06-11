@@ -75,7 +75,7 @@ export default function App() {
       const cleanSection = currentHash.replace('#', '');
       setCurrentView('home');
       setCurrentSection(cleanSection);
-      
+
       setTimeout(() => {
         const el = document.getElementById(cleanSection);
         if (el) {
@@ -156,26 +156,25 @@ export default function App() {
     } else if (target === 'home') {
       setCurrentView('home');
       window.location.hash = '/';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0 });
     } else if (isSection) {
       window.location.hash = target;
       setCurrentView('home');
       isNavClickRef.current = true;
 
-      setTimeout(() => {
-        const actualTarget = target === 'home' ? 'hero' : target;
-        const el = document.getElementById(actualTarget);
-        if (el) {
-          const targetOffsetTop = el.offsetTop + 15; 
-          window.scrollTo({ top: targetOffsetTop, behavior: 'smooth' });
+      const actualTarget = target === 'home' ? 'hero' : target;
+      const el = document.getElementById(actualTarget);
+      if (el) {
+        const targetOffsetTop = el.offsetTop + 15;
 
-          setTimeout(() => {
-            isNavClickRef.current = false;
-          }, 700);
-        } else {
+        window.scrollTo({ top: targetOffsetTop });
+
+        setTimeout(() => {
           isNavClickRef.current = false;
-        }
-      }, 50);
+        }, 800);
+      } else {
+        isNavClickRef.current = false;
+      }
     }
   };
 
@@ -186,22 +185,21 @@ export default function App() {
   const driveId = getDriveId(DATA.socials.resume);
 
   return (
-    <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200 flex flex-col overflow-y-auto">
-      
+    <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200 flex flex-col">
       {/* GLOBAL HEADER NAV */}
-      <Header 
-        onNavigate={handleNavigate} 
-        currentView={currentView} 
-        darkMode={darkMode} 
-        setDarkMode={setDarkMode} 
+      <Header
+        onNavigate={handleNavigate}
+        currentView={currentView}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
       />
 
       <main className="w-full pt-10 flex-1 flex flex-col justify-between">
-        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 pb-24 flex-1">
-          
+        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 pb-24 flex-1 min-h-[75vh]">
+
           {/* VIEW 1: RESUME CONTROLLER */}
           {currentView === 'resume' && (
-            <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full flex flex-col">
+            <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full flex flex-col transition-all">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 w-full">
                 <h1 className="text-3xl md:text-4xl font-bold text-[var(--text)] tracking-tight flex items-center gap-3 font-serif">
                   <FileText size={28} className="text-[var(--accent)]" /> My Resume
@@ -225,7 +223,7 @@ export default function App() {
 
           {/* VIEW 2: LOG ARTICLES CONTAINER */}
           {currentView === 'blogs' && (
-            <div className="py-12 md:py-2 animate-in fade-in duration-300 w-full">
+            <div className="py-12 md:py-2 animate-in fade-in duration-300 w-full transition-all">
               <div className="mb-7 text-center">
                 <h1 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-2 tracking-tight font-serif">My Articles</h1>
                 <p className="text-[var(--text-secondary)] text-base md:text-lg">Thoughts, journeys, and engineering insights.</p>
@@ -257,8 +255,8 @@ export default function App() {
 
           {/* VIEW 3: CORE HOME INTERFACE DISPLAY */}
           {currentView === 'home' && (
-            <div className="w-full flex flex-col">
-              
+            <div className="w-full flex flex-col animate-in fade-in duration-300 transition-all">
+
               <div id="hero" className="min-h-[calc(100vh-5rem)] flex items-center justify-center w-full">
                 <div className="w-full py-6 md:py-12">
                   <Hero onNavigate={handleNavigate} />
@@ -487,7 +485,7 @@ export default function App() {
         </div>
 
         {/* FOOTER */}
-        <footer className="w-full text-center py-6 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
+        <footer className="w-full text-center py-7 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
           <div className="max-w-5xl mx-auto w-full">
             <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
           </div>
