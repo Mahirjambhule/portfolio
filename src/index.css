@@ -33,14 +33,14 @@ html.light {
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html, body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: Geist, sans-serif;
+html,
+body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100vh;
+  /* 📍 MAKE SURE THIS IS NOT set to hidden! */
+  overflow-x: hidden; 
+  overflow-y: auto; 
 }
 
 #main-scroll-pane::-webkit-scrollbar {

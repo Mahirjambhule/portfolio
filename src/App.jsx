@@ -4,8 +4,8 @@ import { DATA } from "./data";
 import { Hero } from "./components/Hero";
 import { Section } from "./components/Section";
 import { ProjectCard } from "./components/ProjectCard";
-import { Footer } from "./components/Footer";
-import { FileText, Download, Menu, X as XIcon } from "lucide-react";
+import { Header } from './components/Header';
+import { FileText } from "lucide-react";
 
 const SKILL_LOGOS = {
   "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
@@ -44,7 +44,6 @@ export default function App() {
     const savedTheme = localStorage.getItem('portfolio-darkMode');
     return savedTheme !== null ? JSON.parse(savedTheme) : true;
   });
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProjectsExpanded, setIsProjectsExpanded] = useState(false);
 
   const isNavClickRef = useRef(false);
@@ -69,34 +68,34 @@ export default function App() {
       window.history.replaceState(null, '', window.location.origin + window.location.pathname);
     }
 
-    const container = document.getElementById('main-scroll-pane');
-    if (container) container.scrollTop = 0;
+    // Modern behavior: window handles scrolling now
+    window.scrollTo({ top: 0 });
 
     const syncViewWithHash = () => {
       const hash = window.location.hash;
-      const scrollPane = document.getElementById('main-scroll-pane');
 
       if (hash === '#/blogs') {
         setCurrentView('blogs');
         setCurrentSection('blogs');
-        if (scrollPane) scrollPane.scrollTop = 0;
+        window.scrollTo({ top: 0 });
       } else if (hash === '#/resume') {
         setCurrentView('resume');
         setCurrentSection('resume');
-        if (scrollPane) scrollPane.scrollTop = 0;
+        window.scrollTo({ top: 0 });
       } else {
         setCurrentView('home');
         const cleanSection = hash.replace('#', '');
         if (cleanSection && cleanSection !== '/') {
           setCurrentSection(cleanSection);
           const el = document.getElementById(cleanSection === 'home' ? 'hero' : cleanSection);
-          if (el && scrollPane) {
-            const targetOffset = el.offsetTop;
-            scrollPane.scrollTo({ top: targetOffset, behavior: 'smooth' });
+          if (el) {
+            // Account for header height cushion
+            const targetOffset = el.offsetTop - 80;
+            window.scrollTo({ top: targetOffset, behavior: 'smooth' });
           }
         } else {
           setCurrentSection('home');
-          if (scrollPane) scrollPane.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
     };
@@ -138,22 +137,20 @@ export default function App() {
   }, [currentView]);
 
   const handleNavigate = (target, isSection) => {
-    setIsMobileMenuOpen(false);
     setCurrentSection(target);
-    const scrollPane = document.getElementById('main-scroll-pane');
 
     if (target === 'blogs') {
       setCurrentView('blogs');
       window.location.hash = '/blogs';
-      if (scrollPane) scrollPane.scrollTop = 0;
+      window.scrollTo({ top: 0 });
     } else if (target === 'resume') {
       setCurrentView('resume');
       window.location.hash = '/resume';
-      if (scrollPane) scrollPane.scrollTop = 0;
+      window.scrollTo({ top: 0 });
     } else if (target === 'home') {
       setCurrentView('home');
       window.location.hash = '/';
-      if (scrollPane) scrollPane.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (isSection) {
       window.location.hash = target;
       setCurrentView('home');
@@ -162,10 +159,9 @@ export default function App() {
       setTimeout(() => {
         const actualTarget = target === 'home' ? 'hero' : target;
         const el = document.getElementById(actualTarget);
-        if (el && scrollPane) {
-          // Calculate exact position relative to the main scroll container canvas
-          const targetOffsetTop = el.offsetTop;
-          scrollPane.scrollTo({ top: targetOffsetTop, behavior: 'smooth' });
+        if (el) {
+          const targetOffsetTop = el.offsetTop - 80; // Smooth 80px fixed navbar offset
+          window.scrollTo({ top: targetOffsetTop, behavior: 'smooth' });
 
           setTimeout(() => {
             isNavClickRef.current = false;
@@ -183,158 +179,21 @@ export default function App() {
   };
   const driveId = getDriveId(DATA.socials.resume);
 
-  const navItems = [
-    { name: 'Home', target: 'home', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg> },
-    { name: 'About', target: 'about', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg> },
-    { name: 'Projects', target: 'projects', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
-    { name: 'Skills', target: 'skills', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg> },
-    { name: 'Certifications', target: 'certifications', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> },
-    { name: 'Contact', target: 'contact', isSection: true, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg> },
-    { name: 'Blogs', target: 'blogs', isSection: false, icon: <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" /></svg> }
-  ];
-
   return (
-    <div
-      className="flex flex-col md:flex-row w-full bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200 overflow-y-auto md:overflow-hidden"
-      style={{ height: '100dvh' }}
-    >
-      {/* MOBILE RESPONSIVE HEADER */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-[var(--surface)] border-b border-[var(--border)] sticky top-0 z-50 w-full h-16 shrink-0">
-        <div onClick={() => handleNavigate('home', false)} className="font-bold text-xl font-serif text-[var(--text)] cursor-pointer">
-          {DATA.name.split(' ')[0]}<span className="text-[var(--accent)]">.</span>
-        </div>
+    <div className="min-h-screen w-full bg-[var(--bg)] text-[var(--text)] font-sans antialiased transition-colors duration-200 flex flex-col overflow-y-auto">
+      
+      {/* GLOBAL HEADER NAV */}
+      <Header 
+        onNavigate={handleNavigate} 
+        currentView={currentView} 
+        darkMode={darkMode} 
+        setDarkMode={setDarkMode} 
+      />
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] hover:text-[var(--text)] transition-all cursor-pointer font-semibold text-[10px] font-mono tracking-wider"
-          >
-            {darkMode ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
-            )}
-            <span>{darkMode ? 'DARK' : 'LIGHT'}</span>
-          </button>
-
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-[var(--text)] transition-colors">
-            {isMobileMenuOpen ? <XIcon size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {/* MOBILE SIDEBAR DROPDOWN */}
-      {
-        isMobileMenuOpen && (
-          <div className="md:hidden fixed top-16 left-0 w-full bg-[var(--surface)] border-b border-[var(--border)] z-40 flex flex-col p-6 gap-5 font-mono text-xs shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto">
-            <nav className="flex flex-col gap-2">
-              {navItems.map(item => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavigate(item.target, item.isSection)}
-                  className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer ${currentSection === item.target
-                    ? 'bg-[var(--card)] text-[var(--accent)] font-semibold'
-                    : 'text-[var(--text-secondary)]'
-                    }`}
-                >
-                  {item.icon}
-                  {item.name}
-                </button>
-              ))}
-            </nav>
-
-            <div className="w-full pl-2 space-y-4 border-t border-[var(--border)]/60 pt-5 mt-2">
-              <div className="text-[10px] space-y-1 text-[var(--text-secondary)] tracking-wide font-medium normal-case font-sans">
-                <p className="text-[var(--accent)] uppercase tracking-wider text-[9px] font-mono font-semibold">Full Stack & AI Enthusiast</p>
-                <p>📍 India</p>
-                <p>🎂 22 Years Old</p>
-              </div>
-
-              <div className="pt-2">
-                <p className="text-sm font-serif tracking-tight text-[var(--text-secondary)] normal-case italic leading-snug select-none text-balance">
-                  "Let's build something meaningful."
-                </p>
-                <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
-              </div>
-
-              <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}</p>
-            </div>
-          </div>
-        )
-      }
-
-      {/* DESKTOP SIDEBAR PANEL */}
-      <aside
-        className="hidden md:flex w-[230px] min-w-[230px] max-w-[230px] shrink-0 bg-[var(--surface)] border-r border-[var(--border)] flex flex-col justify-between p-6 select-none md:sticky md:top-0 font-mono text-xs uppercase tracking-wider z-30"
-        style={{ height: '100dvh' }}
-      >
-        <div className="space-y-6 flex flex-col h-full justify-between">
-          <div className="space-y-6 w-full">
-            <div onClick={() => handleNavigate('home', false)} className="font-bold text-2xl text-[var(--text)] tracking-tight font-serif cursor-pointer pl-2 pt-2">
-              Mahir<span className="text-[var(--accent)]">.</span>
-            </div>
-
-            <nav className="flex flex-col gap-1">
-              {navItems.map(item => {
-                const isActive = currentSection === item.target;
-                return (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavigate(item.target, item.isSection)}
-                    className={`flex items-center gap-2.5 px-4 py-2.5 rounded-md text-left font-medium cursor-pointer transform-gpu ${isActive
-                      ? 'bg-[var(--card)] text-[var(--accent)] border border-[var(--border)] shadow-xs font-semibold scale-[1.01]'
-                      : 'text-[var(--text-secondary)] hover:bg-[var(--border)]/30 hover:text-[var(--text)]'
-                      }`}
-                  >
-                    <span className="opacity-70">{item.icon}</span>
-                    {item.name}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-
-          <div className="w-full pl-2 space-y-4 border-t border-[var(--border)]/60 pt-6">
-            <div className="text-[10px] space-y-1 text-[var(--text-secondary)] tracking-wide font-medium normal-case font-sans">
-              <p className="text-[var(--accent)] uppercase tracking-wider text-[9px] font-mono font-semibold">Full Stack & AI Enthusiast</p>
-              <p>📍 India</p>
-              <p>🎂 22 Years Old</p>
-            </div>
-
-            <div className="pt-3">
-              <p className="text-sm font-serif tracking-tight text-[var(--text-secondary)] normal-case italic leading-snug select-none text-balance">
-                "Let's build something meaningful."
-              </p>
-              <div className="h-[2px] w-8 bg-[var(--accent)] mt-2" />
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-4 pl-2 pt-4 shrink-0">
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-md border border-[var(--border)] bg-[var(--card)] text-[var(--text-secondary)] hover:text-[var(--text)] transition-all cursor-pointer font-semibold text-[10px]"
-          >
-            <div className="flex items-center gap-2">
-              {darkMode ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>
-              )}
-              <span>{darkMode ? 'DARK PALETTE' : 'LIGHT PALETTE'}</span>
-            </div>
-            <span className={`w-1.5 h-1.5 rounded-full ${darkMode ? 'bg-[var(--accent)]' : 'bg-[var(--accent-blue)]'}`} />
-          </button>
-          <p className="text-[10px] text-[var(--muted)] leading-tight">© {new Date().getFullYear()} {DATA.name}</p>
-        </div>
-      </aside>
-
-      {/* MAIN CONTENT PANELS */}
-      <main
-        id="main-scroll-pane"
-        className="flex-1 overflow-y-auto bg-[var(--bg)] scroll-smooth flex flex-col justify-between"
-        style={{ height: '100dvh', WebkitOverflowScrolling: 'touch' }}
-      >        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 pb-24 flex-1">
+      {/* NATURAL VERTICAL FLOW PANEL */}
+      <main className="w-full pt-10 flex-1 flex flex-col justify-between">
+        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 pb-24 flex-1">
+          
           {/* VIEW 1: RESUME CONTROLLER */}
           {currentView === 'resume' && (
             <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full flex flex-col">
@@ -394,8 +253,8 @@ export default function App() {
           {/* VIEW 3: CORE HOME INTERFACE DISPLAY */}
           {currentView === 'home' && (
             <div className="w-full flex flex-col">
-
-              <div id="hero" className="min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-6rem)] flex items-center justify-center w-full">
+              
+              <div id="hero" className="min-h-[calc(100vh-5rem)] flex items-center justify-center w-full">
                 <div className="w-full py-6 md:py-12">
                   <Hero onNavigate={handleNavigate} />
                 </div>
@@ -548,7 +407,7 @@ export default function App() {
                 </div>
               </Section>
 
-              <Section id="contact" title="Get In Touch" className="w-full pt-8 pb-1">
+              <Section id="contact" title="Get In Touch" className="w-full pt-2 pb-1">
                 <div className="text-center py-12 bg-[var(--card)] rounded-2xl shadow-sm border border-[var(--border)] w-full">
                   <p className="text-[var(--text-secondary)] text-lg mb-6 max-w-xl mx-auto px-4 font-sans">
                     I am currently looking for full-time opportunities. Whether you have a question or just want to say hi, my inbox is always open.
@@ -622,8 +481,8 @@ export default function App() {
           )}
         </div>
 
-        {/* FOOTER CONTAINER */}
-        <footer className="w-full text-center py-10 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0 mt-auto">
+        {/* FOOTER */}
+        <footer className="w-full text-center py-8 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
           <div className="max-w-5xl mx-auto w-full">
             <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
           </div>
