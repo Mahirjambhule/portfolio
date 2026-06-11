@@ -38,8 +38,20 @@ const SKILL_LOGOS = {
 const ALL_SKILLS = Object.values(DATA.skills).flat();
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('home');
-  const [currentSection, setCurrentSection] = useState('home');
+  const [currentView, setCurrentView] = useState(() => {
+    const hash = window.location.hash;
+    if (hash === '#/blogs') return 'blogs';
+    if (hash === '#/resume') return 'resume';
+    return 'home';
+  });
+
+  const [currentSection, setCurrentSection] = useState(() => {
+    const hash = window.location.hash;
+    if (hash === '#/blogs') return 'blogs';
+    if (hash === '#/resume') return 'resume';
+    return 'home';
+  });
+
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('portfolio-darkMode');
     return savedTheme !== null ? JSON.parse(savedTheme) : true;
@@ -63,15 +75,7 @@ export default function App() {
   useEffect(() => {
     const currentHash = window.location.hash;
 
-    if (currentHash === '#/blogs') {
-      setCurrentView('blogs');
-      setCurrentSection('blogs');
-      window.scrollTo({ top: 0 });
-    } else if (currentHash === '#/resume') {
-      setCurrentView('resume');
-      setCurrentSection('resume');
-      window.scrollTo({ top: 0 });
-    } else if (currentHash && currentHash !== '#/' && currentHash !== '#') {
+    if (currentHash && currentHash !== '#/' && currentHash !== '#/blogs' && currentHash !== '#/resume') {
       const cleanSection = currentHash.replace('#', '');
       setCurrentView('home');
       setCurrentSection(cleanSection);
@@ -83,10 +87,6 @@ export default function App() {
           window.scrollTo({ top: targetOffset, behavior: 'smooth' });
         }
       }, 150);
-    } else {
-      setCurrentView('home');
-      setCurrentSection('home');
-      window.scrollTo({ top: 0 });
     }
 
     const syncViewWithHash = () => {
@@ -159,21 +159,41 @@ export default function App() {
       window.scrollTo({ top: 0 });
     } else if (isSection) {
       window.location.hash = target;
-      setCurrentView('home');
       isNavClickRef.current = true;
 
-      const actualTarget = target === 'home' ? 'hero' : target;
-      const el = document.getElementById(actualTarget);
-      if (el) {
-        const targetOffsetTop = el.offsetTop + 15;
+      const performScroll = () => {
+        const actualTarget = target === 'home' ? 'hero' : target;
+        const el = document.getElementById(actualTarget);
+        if (el) {
+          const targetOffsetTop = el.offsetTop + 15; 
+          window.scrollTo({ top: targetOffsetTop }); 
+          
+          setTimeout(() => {
+            const mainContainer = document.querySelector('main');
+            if (mainContainer) mainContainer.style.opacity = '1';
+          }, 50);
 
-        window.scrollTo({ top: targetOffsetTop });
-
-        setTimeout(() => {
+          setTimeout(() => {
+            isNavClickRef.current = false;
+          }, 800);
+        } else {
           isNavClickRef.current = false;
-        }, 800);
+          const mainContainer = document.querySelector('main');
+          if (mainContainer) mainContainer.style.opacity = '1';
+        }
+      };
+
+      if (currentView !== 'home') {
+        const mainContainer = document.querySelector('main');
+        if (mainContainer) {
+          mainContainer.style.transition = 'none';
+          mainContainer.style.opacity = '0';
+        }
+
+        setCurrentView('home');
+        setTimeout(performScroll, 50);
       } else {
-        isNavClickRef.current = false;
+        performScroll();
       }
     }
   };
