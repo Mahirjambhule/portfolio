@@ -9,7 +9,7 @@ export const Hero = ({ onNavigate }) => {
   };
 
   return (
-    <section className="relative flex items-center min-h-[60vh] w-full pt-8 pb-12">
+    <section className="relative flex items-center min-h-[60vh] w-full pt-1 pb-12">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center w-full">
 
         {/* Left Column: Bio & Text Content */}

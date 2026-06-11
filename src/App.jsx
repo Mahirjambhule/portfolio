@@ -61,18 +61,36 @@ export default function App() {
   }, [darkMode]);
 
   useEffect(() => {
-    setCurrentView('home');
-    setCurrentSection('home');
+    const currentHash = window.location.hash;
 
-    if (window.location.hash) {
-      window.history.replaceState(null, '', window.location.origin + window.location.pathname);
+    if (currentHash === '#/blogs') {
+      setCurrentView('blogs');
+      setCurrentSection('blogs');
+      window.scrollTo({ top: 0 });
+    } else if (currentHash === '#/resume') {
+      setCurrentView('resume');
+      setCurrentSection('resume');
+      window.scrollTo({ top: 0 });
+    } else if (currentHash && currentHash !== '#/' && currentHash !== '#') {
+      const cleanSection = currentHash.replace('#', '');
+      setCurrentView('home');
+      setCurrentSection(cleanSection);
+      
+      setTimeout(() => {
+        const el = document.getElementById(cleanSection);
+        if (el) {
+          const targetOffset = el.offsetTop + 15;
+          window.scrollTo({ top: targetOffset, behavior: 'smooth' });
+        }
+      }, 150);
+    } else {
+      setCurrentView('home');
+      setCurrentSection('home');
+      window.scrollTo({ top: 0 });
     }
-
-    window.scrollTo({ top: 0 });
 
     const syncViewWithHash = () => {
       const hash = window.location.hash;
-
       if (hash === '#/blogs') {
         setCurrentView('blogs');
         setCurrentSection('blogs');
@@ -81,20 +99,10 @@ export default function App() {
         setCurrentView('resume');
         setCurrentSection('resume');
         window.scrollTo({ top: 0 });
-      } else {
+      } else if (hash === '#/' || !hash) {
         setCurrentView('home');
-        const cleanSection = hash.replace('#', '');
-        if (cleanSection && cleanSection !== '/') {
-          setCurrentSection(cleanSection);
-          const el = document.getElementById(cleanSection === 'home' ? 'hero' : cleanSection);
-          if (el) {
-            const targetOffset = el.offsetTop - 80;
-            window.scrollTo({ top: targetOffset, behavior: 'smooth' });
-          }
-        } else {
-          setCurrentSection('home');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        setCurrentSection('home');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
 
@@ -158,7 +166,7 @@ export default function App() {
         const actualTarget = target === 'home' ? 'hero' : target;
         const el = document.getElementById(actualTarget);
         if (el) {
-          const targetOffsetTop = el.offsetTop - 80; 
+          const targetOffsetTop = el.offsetTop + 15; 
           window.scrollTo({ top: targetOffsetTop, behavior: 'smooth' });
 
           setTimeout(() => {
@@ -217,8 +225,8 @@ export default function App() {
 
           {/* VIEW 2: LOG ARTICLES CONTAINER */}
           {currentView === 'blogs' && (
-            <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full">
-              <div className="mb-12 text-center">
+            <div className="py-12 md:py-2 animate-in fade-in duration-300 w-full">
+              <div className="mb-7 text-center">
                 <h1 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-2 tracking-tight font-serif">My Articles</h1>
                 <p className="text-[var(--text-secondary)] text-base md:text-lg">Thoughts, journeys, and engineering insights.</p>
               </div>
@@ -257,7 +265,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div id="about" className="pt-20 w-full">
+              <div id="about" className="pt-30 w-full">
                 <Section title="About Me">
                   <div className="text-[var(--text-secondary)] text-lg leading-relaxed w-full space-y-6">
                     <p className="text-justify font-sans">{DATA.about}</p>
@@ -276,7 +284,7 @@ export default function App() {
                 </Section>
               </div>
 
-              <Section id="projects" title="Featured Projects" className="w-full pt-16">
+              <Section id="projects" title="Featured Projects" className="w-full pt-30">
                 <div className="w-full flex justify-end mb-6 -mt-14">
                   <button
                     onClick={() => setIsProjectsExpanded(!isProjectsExpanded)}
@@ -294,7 +302,7 @@ export default function App() {
                 </div>
               </Section>
 
-              <Section id="skills" title="Tech Stack Capability" className="w-full pt-16">
+              <Section id="skills" title="Tech Stack Capability" className="w-full pt-30">
                 <div className="w-full border border-[var(--border)] bg-[var(--card)] rounded-2xl p-6 md:p-8 shadow-xs relative overflow-hidden">
                   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
                     {ALL_SKILLS.map((skill) => {
@@ -387,7 +395,7 @@ export default function App() {
                 </div>
               </Section>
 
-              <Section id="certifications" title="Certifications" className="w-full pt-16">
+              <Section id="certifications" title="Certifications" className="w-full pt-30">
                 <div className="space-y-6 w-full">
                   {DATA.certifications.map((cert, idx) => (
                     <div key={idx} className="bg-[var(--card)] border border-[var(--border)] shadow-sm rounded-xl p-6 hover:border-[var(--accent)]/40 transition-all duration-300">
@@ -404,7 +412,7 @@ export default function App() {
                 </div>
               </Section>
 
-              <Section id="contact" title="Get In Touch" className="w-full pt-3 pb-1">
+              <Section id="contact" title="Get In Touch" className="w-full pt-30 pb-0">
                 <div className="text-center py-12 bg-[var(--card)] rounded-2xl shadow-sm border border-[var(--border)] w-full">
                   <p className="text-[var(--text-secondary)] text-lg mb-6 max-w-xl mx-auto px-4 font-sans">
                     I am currently looking for full-time opportunities. Whether you have a question or just want to say hi, my inbox is always open.
@@ -479,7 +487,7 @@ export default function App() {
         </div>
 
         {/* FOOTER */}
-        <footer className="w-full text-center py-8 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
+        <footer className="w-full text-center py-6 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] bg-[var(--surface)]/60 px-6 md:px-12 shrink-0">
           <div className="max-w-5xl mx-auto w-full">
             <p>© {new Date().getFullYear()} {DATA.name} • Built with ❤️ and coffee.</p>
           </div>

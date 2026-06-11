@@ -67,7 +67,7 @@ export const Header = ({ onNavigate, currentView, darkMode, setDarkMode }) => {
 
     return (
         <header className="fixed top-0 left-0 w-full bg-[var(--bg)]/90 backdrop-blur-md z-50 border-b border-[var(--border)]">
-            <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div className="max-w-5xl mx-auto px-6 h-17 flex items-center justify-between">
 
                 <a
                     href="/"

@@ -42,17 +42,17 @@ body {
   overflow-y: auto; 
 }
 
-#main-scroll-pane::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 9px; 
 }
-#main-scroll-pane::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background: var(--bg);
 }
-#main-scroll-pane::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: #525252;
   border-radius: 20px;
 }
-#main-scroll-pane::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background: #D97757;
 }
 
