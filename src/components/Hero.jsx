@@ -3,7 +3,6 @@ import { DATA } from "../data";
 import { ArrowRight, FileText } from 'lucide-react';
 
 export const Hero = ({ onNavigate }) => {
-  // Gracefully routes internal section scrolls via your central main-pane router engine
   const handleActionClick = (e, target) => {
     e.preventDefault();
     onNavigate(target, true);
@@ -17,7 +16,6 @@ export const Hero = ({ onNavigate }) => {
         <div className="md:col-span-7 space-y-6 text-left order-2 md:order-1">
           <div className="space-y-2">
             <p className="text-base font-semibold text-[var(--accent)] tracking-wide">Hi, I'm</p>
-            {/* 📍 FIXED VISUAL BUG: Removed whitespace-nowrap to let text wrap cleanly if a layout scales */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-[var(--text)] tracking-tight">
               {DATA.name}
             </h1>
@@ -30,7 +28,6 @@ export const Hero = ({ onNavigate }) => {
             {DATA.tagline || "Passionate about building scalable web applications and engineering pixel-perfect responsive digital experiences."}
           </p>
 
-          {/* 📍 RELOCATED BIO PROFILE TAGS */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-[var(--text-secondary)] tracking-wide my-6 border-l-2 border-[var(--accent)] pl-4">
             <span className="text-[var(--accent)] uppercase font-semibold tracking-wider">Full Stack & AI Enthusiast</span>
             <span className="hidden sm:inline opacity-30">•</span>

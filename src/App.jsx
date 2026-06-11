@@ -68,7 +68,6 @@ export default function App() {
       window.history.replaceState(null, '', window.location.origin + window.location.pathname);
     }
 
-    // Modern behavior: window handles scrolling now
     window.scrollTo({ top: 0 });
 
     const syncViewWithHash = () => {
@@ -89,7 +88,6 @@ export default function App() {
           setCurrentSection(cleanSection);
           const el = document.getElementById(cleanSection === 'home' ? 'hero' : cleanSection);
           if (el) {
-            // Account for header height cushion
             const targetOffset = el.offsetTop - 80;
             window.scrollTo({ top: targetOffset, behavior: 'smooth' });
           }
@@ -160,7 +158,7 @@ export default function App() {
         const actualTarget = target === 'home' ? 'hero' : target;
         const el = document.getElementById(actualTarget);
         if (el) {
-          const targetOffsetTop = el.offsetTop - 80; // Smooth 80px fixed navbar offset
+          const targetOffsetTop = el.offsetTop - 80; 
           window.scrollTo({ top: targetOffsetTop, behavior: 'smooth' });
 
           setTimeout(() => {
@@ -190,7 +188,6 @@ export default function App() {
         setDarkMode={setDarkMode} 
       />
 
-      {/* NATURAL VERTICAL FLOW PANEL */}
       <main className="w-full pt-10 flex-1 flex flex-col justify-between">
         <div className="w-full max-w-5xl mx-auto px-6 md:px-12 pt-4 md:pt-12 pb-24 flex-1">
           
@@ -407,7 +404,7 @@ export default function App() {
                 </div>
               </Section>
 
-              <Section id="contact" title="Get In Touch" className="w-full pt-2 pb-1">
+              <Section id="contact" title="Get In Touch" className="w-full pt-3 pb-1">
                 <div className="text-center py-12 bg-[var(--card)] rounded-2xl shadow-sm border border-[var(--border)] w-full">
                   <p className="text-[var(--text-secondary)] text-lg mb-6 max-w-xl mx-auto px-4 font-sans">
                     I am currently looking for full-time opportunities. Whether you have a question or just want to say hi, my inbox is always open.

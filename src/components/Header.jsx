@@ -68,12 +68,14 @@ export const Header = ({ onNavigate, currentView, darkMode, setDarkMode }) => {
     return (
         <header className="fixed top-0 left-0 w-full bg-[var(--bg)]/90 backdrop-blur-md z-50 border-b border-[var(--border)]">
             <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
-                
-                {/* 📍 SHORT NAME BRANDING: Clicking "Mahir." triggers Home navigation */}
-                <a 
-                    href="#" 
-                    onClick={(e) => handleNavClick(e, { target: 'home', isSection: true })} 
-                    className="font-bold text-xl text-[var(--text)] tracking-tight font-serif cursor-pointer"
+
+                <a
+                    href="/"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = window.location.origin + '/';
+                    }}
+                    className="font-bold text-xl text-[var(--text)] tracking-tight font-serif cursor-pointer select-none"
                 >
                     Mahir<span className="text-[var(--accent)]">.</span>
                 </a>
@@ -84,18 +86,16 @@ export const Header = ({ onNavigate, currentView, darkMode, setDarkMode }) => {
                         const isActive = activeSection === item.target;
 
                         return (
-                            <a 
-                                key={item.name} 
+                            <a
+                                key={item.name}
                                 href={`#${item.target}`}
                                 onClick={(e) => handleNavClick(e, item)}
-                                className={`relative py-1 transition-colors group cursor-pointer ${
-                                    isActive ? 'text-[var(--accent)] font-semibold' : 'text-[var(--text-secondary)] hover:text-[var(--accent)]'
-                                }`}
+                                className={`relative py-1 transition-colors group cursor-pointer ${isActive ? 'text-[var(--accent)] font-semibold' : 'text-[var(--text-secondary)] hover:text-[var(--accent)]'
+                                    }`}
                             >
                                 {item.name}
-                                <span className={`absolute bottom-0 left-0 h-[2px] bg-[var(--accent)] transition-all ${
-                                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                                }`}></span>
+                                <span className={`absolute bottom-0 left-0 h-[2px] bg-[var(--accent)] transition-all ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                                    }`}></span>
                             </a>
                         );
                     })}
@@ -130,13 +130,12 @@ export const Header = ({ onNavigate, currentView, darkMode, setDarkMode }) => {
                         const isActive = activeSection === item.target;
 
                         return (
-                            <a 
-                                key={item.name} 
+                            <a
+                                key={item.name}
                                 href={`#${item.target}`}
                                 onClick={(e) => handleNavClick(e, item)}
-                                className={`font-medium text-base py-1 cursor-pointer ${
-                                    isActive ? 'text-[var(--accent)] font-semibold' : 'text-[var(--text-secondary)]'
-                                }`}
+                                className={`font-medium text-base py-1 cursor-pointer ${isActive ? 'text-[var(--accent)] font-semibold' : 'text-[var(--text-secondary)]'
+                                    }`}
                             >
                                 {item.name}
                             </a>
