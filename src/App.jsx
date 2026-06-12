@@ -91,10 +91,11 @@ export default function App() {
 
     const syncViewWithHash = () => {
       const hash = window.location.hash;
+      
       if (hash === '#/blogs') {
         setCurrentView('blogs');
         setCurrentSection('blogs');
-        window.scrollTo({ top: 0 });
+        window.scrollTo({ top: 0 }); 
       } else if (hash === '#/resume') {
         setCurrentView('resume');
         setCurrentSection('resume');
@@ -102,7 +103,19 @@ export default function App() {
       } else if (hash === '#/' || !hash) {
         setCurrentView('home');
         setCurrentSection('home');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0 });
+      } else {
+        const targetSection = hash.replace('#', '');
+        setCurrentView('home');
+        setCurrentSection(targetSection);
+        
+        setTimeout(() => {
+          const el = document.getElementById(targetSection);
+          if (el) {
+            const targetOffsetTop = el.offsetTop + 15;
+            window.scrollTo({ top: targetOffsetTop });
+          }
+        }, 0);
       }
     };
 
@@ -146,17 +159,38 @@ export default function App() {
     setCurrentSection(target);
 
     if (target === 'blogs') {
+      const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      
       setCurrentView('blogs');
       window.location.hash = '/blogs';
-      window.scrollTo({ top: 0 });
+      window.scrollTo(0, 0);
+      
+      requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = originalScrollBehavior;
+      });
     } else if (target === 'resume') {
+      const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      
       setCurrentView('resume');
       window.location.hash = '/resume';
-      window.scrollTo({ top: 0 });
+      window.scrollTo(0, 0);
+      
+      requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = originalScrollBehavior;
+      });
     } else if (target === 'home') {
+      const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      
       setCurrentView('home');
       window.location.hash = '/';
-      window.scrollTo({ top: 0 });
+      window.scrollTo(0, 0);
+      
+      requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = originalScrollBehavior;
+      });
     } else if (isSection) {
       window.location.hash = target;
       isNavClickRef.current = true;
@@ -166,38 +200,31 @@ export default function App() {
         const el = document.getElementById(actualTarget);
         if (el) {
           const targetOffsetTop = el.offsetTop + 15; 
-          window.scrollTo({ top: targetOffsetTop }); 
-          
-          setTimeout(() => {
-            const mainContainer = document.querySelector('main');
-            if (mainContainer) mainContainer.style.opacity = '1';
-          }, 50);
-
+          window.scrollTo({ top: targetOffsetTop, behavior: 'smooth' }); 
           setTimeout(() => {
             isNavClickRef.current = false;
           }, 800);
         } else {
           isNavClickRef.current = false;
-          const mainContainer = document.querySelector('main');
-          if (mainContainer) mainContainer.style.opacity = '1';
         }
       };
 
       if (currentView !== 'home') {
-        const mainContainer = document.querySelector('main');
-        if (mainContainer) {
-          mainContainer.style.transition = 'none';
-          mainContainer.style.opacity = '0';
-        }
-
+        const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior = 'auto';
+        
         setCurrentView('home');
+        window.scrollTo(0, 0);
+        
+        document.documentElement.style.scrollBehavior = originalScrollBehavior;
+        
         setTimeout(performScroll, 50);
       } else {
         performScroll();
       }
     }
   };
-
+  
   const getDriveId = (url) => {
     const match = url?.match(/\/d\/(.+?)\//);
     return match ? match[1] : null;
@@ -219,7 +246,7 @@ export default function App() {
 
           {/* VIEW 1: RESUME CONTROLLER */}
           {currentView === 'resume' && (
-            <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full flex flex-col transition-all">
+            <div className="py-12 md:py-4 animate-in fade-in duration-300 w-full flex flex-col min-h-screen">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 w-full">
                 <h1 className="text-3xl md:text-4xl font-bold text-[var(--text)] tracking-tight flex items-center gap-3 font-serif">
                   <FileText size={28} className="text-[var(--accent)]" /> My Resume
@@ -243,7 +270,7 @@ export default function App() {
 
           {/* VIEW 2: LOG ARTICLES CONTAINER */}
           {currentView === 'blogs' && (
-            <div className="py-12 md:py-2 animate-in fade-in duration-300 w-full transition-all">
+            <div className="py-12 md:py-2 animate-in fade-in duration-300 w-full min-h-screen">
               <div className="mb-7 text-center">
                 <h1 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-2 tracking-tight font-serif">My Articles</h1>
                 <p className="text-[var(--text-secondary)] text-base md:text-lg">Thoughts, journeys, and engineering insights.</p>

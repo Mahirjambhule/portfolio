@@ -36,6 +36,9 @@ html.light {
 html {
   scroll-behavior: smooth;
 }
+html {
+  overflow-anchor: none;
+}
 
 html,
 body {
